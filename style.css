@@ -1,0 +1,1150 @@
+:root{--serif:Fraunces,"Playfair Display",Georgia,serif;--brown:#1A0C06;--amber:#C87A28;--amber-d:#9C5116;--glass:rgba(255,252,247,.72);--gline:rgba(255,255,255,.85);--mute:rgba(26,12,6,.74);--line:rgba(26,12,6,.14);--oat:#FFFCF7;--shadow:0 20px 40px rgba(26,12,6,.12),0 2px 6px rgba(26,12,6,.08);--r:24px;--spring:cubic-bezier(.16,1,.3,1);--lux:cubic-bezier(.25,1,.5,1);--lift:0 12px 25px rgba(180,110,50,.15)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font:400 1.05rem/1.65 Inter,"Helvetica Neue",system-ui,sans-serif;letter-spacing:-.011em;color:var(--brown);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 600px at 90% -6%,rgba(200,122,40,.26),transparent),radial-gradient(800px 600px at -6% 60%,rgba(156,81,22,.16),transparent),linear-gradient(180deg,#F4E8D8,#EBD4B9)}   /* the page gradient lives on its own fixed layer: background-attachment:fixed repaints on every scroll frame, which is what makes a playing hero video stutter */
+h1,h2,h3,.brand,.big,.buy b,.foot b{font-family:"Inter Tight","Helvetica Neue",Arial,sans-serif;font-weight:700;line-height:1.04;letter-spacing:-.035em}
+h1{font-size:clamp(2.5rem,6vw,4.8rem);max-width:15ch;font-weight:800;line-height:1;letter-spacing:-.04em}
+h2{font-size:clamp(1.9rem,3.6vw,2.9rem);margin-bottom:1.6rem}
+h3{font-size:1.35rem}
+p{max-width:62ch;color:var(--mute)}
+a{color:var(--amber-d)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+/* shared glass nav + footer */
+.nav{position:fixed;z-index:50;top:14px;left:50%;transform:translateX(-50%);width:min(1200px,calc(100% - 28px));display:flex;align-items:center;justify-content:space-between;padding:.5rem 1.1rem;border-radius:var(--r);background:var(--glass);border:1px solid var(--gline);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);box-shadow:var(--shadow)}
+.brand{display:flex;align-items:center;gap:.65rem;color:var(--brown);text-decoration:none;font-size:1.25rem}
+.logo{width:46px;height:46px;border-radius:50%;object-fit:contain;background:var(--oat);flex:none}
+.nav nav{display:flex;gap:.3rem}
+.nav nav a,.foot nav a{color:var(--brown);text-decoration:none;font-weight:500;padding:.45rem .85rem;border-radius:12px;transition:background .2s}
+.nav nav a:hover{background:rgba(200,122,40,.2)}
+.nav nav a[aria-current]{background:var(--amber)}
+.burger{display:none;background:none;border:0;width:40px;height:40px;cursor:pointer;position:relative}
+.burger span{position:absolute;left:9px;right:9px;height:2px;background:var(--brown);transition:transform .3s}
+.burger span:first-child{top:15px}.burger span:last-child{top:23px}
+.nav.open .burger span:first-child{transform:translateY(4px) rotate(45deg)}.nav.open .burger span:last-child{transform:translateY(-4px) rotate(-45deg)}
+.foot{position:relative;z-index:2;padding:3rem max(1.2rem,calc((100% - 1200px)/2));display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2rem;background:var(--brown);color:var(--oat)}
+.foot b{font-size:1.3rem}.fbrand{display:flex;gap:.9rem;align-items:flex-start}
+.foot p,.foot small,.foot span{color:rgba(255,252,247,.75)}
+.foot nav{display:flex;flex-direction:column;align-items:flex-start}
+.foot nav a{color:var(--oat);padding-left:0}.foot nav a:hover{color:var(--amber);background:none}
+.foot div:last-child{display:flex;flex-direction:column;gap:.4rem}.foot div a{color:var(--amber)}
+
+/* layout */
+main{position:relative;z-index:1}
+.wrap{width:min(1200px,calc(100% - 2.4rem));margin:0 auto;padding:6rem 0}
+.wrap+.wrap{padding-top:0}
+.page-top{padding-top:9rem}
+.panel{background:var(--glass);border:1px solid var(--gline);border-radius:var(--r);padding:2rem;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:var(--shadow)}
+.row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+.btn{display:inline-block;background:var(--amber);color:var(--brown);font:700 1rem Inter,"Helvetica Neue",system-ui,sans-serif;letter-spacing:-.005em;padding:.8rem 1.5rem;border-radius:999px;border:0;text-decoration:none;cursor:pointer;box-shadow:0 10px 24px rgba(200,122,40,.4);transition:transform .35s var(--spring)}
+.btn:hover{transform:translateY(-3px) scale(1.04)}
+.btn.ghost{background:transparent;border:2px solid var(--brown);box-shadow:none}
+.btn.sm{padding:.45rem 1.1rem;font-size:.95rem}
+
+/* hero */
+#hero3d{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;transform:translateZ(0);will-change:transform}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;width:min(1200px,calc(100% - 2.4rem));margin:0 auto;padding-top:6rem}
+.hero p{font-size:1.2rem;margin-top:1.3rem}
+.hero-copy{max-width:min(560px,50%)}
+.hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:.9rem!important;margin:0!important;text-align:center;transition:opacity .4s}
+.plunged .hint{opacity:0}
+.hero-copy{opacity:1;transform:translateY(0);transition:opacity .55s ease,transform .85s cubic-bezier(.22,1,.36,1)}
+.plunged .hero-copy{opacity:0;transform:translateY(-100px);pointer-events:none}
+
+/* hero video banner: always-on, non-pausable background loop */
+.hero-wrap{position:relative;min-height:100svh}
+.hero-wrap .hero{position:relative;z-index:2}
+.hero-video-wrapper{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;z-index:0;background:#d9b283;transition:opacity .9s ease .1s,transform 1.4s cubic-bezier(.45,0,.15,1);transform-origin:50% 55%}
+.hero-video-banner,.ad-video{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;-webkit-user-select:none;
+  transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform}   /* GPU-composited layer; no scale() on the video itself, so it is never resampled twice */
+.hero-video-wrapper::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(26,12,6,.74),rgba(26,12,6,.28) 42%,rgba(26,12,6,0) 70%),linear-gradient(to right,rgba(26,12,6,.38),transparent 58%)}
+.plunged .hero-video-wrapper{opacity:0;transform:translateY(-14%) scale(1.1)}   /* the banner lifts away overhead as the camera falls */
+.hero-wrap:not(.has-video) .hero-video-wrapper{display:none}
+.has-video .hero{justify-content:flex-end;padding-bottom:6rem}
+.has-video .hero h1{color:var(--oat);text-shadow:0 2px 24px rgba(26,12,6,.55);font-size:clamp(2rem,3.7vw,3.3rem);max-width:22ch}
+.has-video .hero-copy p{display:none}
+@media (min-height:820px){.has-video .hero-copy p{display:block;margin-top:.9rem;font-size:1.05rem}}
+.has-video .hero p{color:rgba(255,252,247,.92);text-shadow:0 1px 14px rgba(26,12,6,.5)}
+.has-video .btn.ghost{color:var(--oat);border-color:var(--oat)}
+.has-video .hero .hint{left:auto;right:1.5rem;transform:none;color:rgba(255,252,247,.88);text-shadow:0 1px 10px rgba(26,12,6,.6)}
+.has-video .hint-cup{display:none}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.6rem}
+.card{background:var(--glass);border:1px solid var(--gline);border-radius:var(--r);padding:1.1rem 1.3rem 1.4rem;display:flex;flex-direction:column;gap:.5rem;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:var(--shadow)}
+.card[hidden]{display:none}
+/* one hover for every product card (crowd favorites + menu grid): lift, grow a touch, warm ambient shadow on top of the resting one */
+.product-card{transition:transform .35s var(--lux),box-shadow .35s var(--lux)}
+@media (hover:hover){.product-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:var(--lift),var(--shadow)}}
+.product-card:has(:focus-visible){transform:translateY(-6px) scale(1.02);box-shadow:var(--lift),var(--shadow)}
+.pic{border-radius:16px;overflow:hidden;box-shadow:0 14px 28px rgba(26,12,6,.2),0 2px 6px rgba(26,12,6,.12)}
+.pic{position:relative;aspect-ratio:1 / 1;contain:layout paint}   /* fixed box + containment: a photo arriving never re-lays-out the page */
+.pic .cover{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:16px;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.card:hover .pic .cover{transform:scale(1.03)}
+.thumbs{position:absolute;left:.7rem;bottom:.7rem;display:flex;gap:.4rem;padding:.3rem;border-radius:14px;background:rgba(255,252,247,.84);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 12px rgba(26,12,6,.22)}
+.thumb{width:44px;height:44px;padding:0;border:2px solid transparent;border-radius:10px;overflow:hidden;background:none;cursor:pointer;opacity:.78;transition:opacity .2s,border-color .2s,transform .2s}
+.thumb:hover{opacity:1;transform:translateY(-2px)}
+.thumb[aria-pressed=true]{border-color:var(--amber);opacity:1}
+.thumb:focus-visible{outline:3px solid var(--brown);outline-offset:2px}
+.thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.card canvas{width:100%;aspect-ratio:4/4.4;display:block;margin-bottom:.2rem;cursor:grab;touch-action:pan-y}
+.card canvas:active{cursor:grabbing}
+.card p{font-size:.98rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tags span{font-size:.8rem;font-weight:600;padding:.15rem .65rem;border-radius:999px;border:1px solid var(--amber);color:var(--amber-d)}
+.tags .pb{background:var(--brown);color:var(--oat);border-color:var(--brown)}
+.tags .pb::before{content:"";display:inline-block;width:.55em;height:.55em;margin-right:.4em;border-radius:0 100% 0 100%;background:#7fd08a}
+.buy{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:.6rem}
+.buy b{font-size:1.5rem;color:var(--amber)}
+/* staggered entrance: fade + slide, 100ms per item (--i = 0,1,2...). It is an animation, not a transition, and only fills backwards, so once it ends the card's own :hover transform is free to take over */
+.pop{opacity:0}
+.pop.in{opacity:1;animation:fadeSlide .6s cubic-bezier(.16,1,.3,1) calc(var(--i,0)*100ms) backwards}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.filters{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
+.filters button{font:600 1rem Inter,"Helvetica Neue",system-ui,sans-serif;color:var(--brown);background:var(--glass);border:2px solid var(--brown);padding:.5rem 1.2rem;border-radius:999px;cursor:pointer;transition:all .25s}
+.filters button[aria-pressed=true]{background:var(--amber);border-color:var(--amber)}
+
+/* ad video section */
+.ad-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:2.5rem;align-items:center}
+.ad-player{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#d9b283;box-shadow:0 20px 25px -5px rgba(26,12,6,.22),0 8px 10px -6px rgba(26,12,6,.2)}   /* video is landscape; swap to 9/16 for vertical media */
+.ad-video{display:block;width:100%;height:100%;object-fit:cover}
+.ad-controls{position:absolute;right:.9rem;bottom:.9rem;display:flex;gap:.5rem;padding:.35rem;border-radius:999px;background:rgba(26,12,6,.38);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.22);opacity:.75;transition:opacity .25s}
+.ad-player:hover .ad-controls,.ad-controls:focus-within{opacity:1}
+.ad-btn{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:#FFFCF7;cursor:pointer;transition:background .2s,transform .3s var(--spring)}
+.ad-btn:hover{background:rgba(255,252,247,.2);transform:scale(1.08)}
+.ad-btn svg{width:22px;height:22px}
+.ad-player[data-playing="true"] .i-play,.ad-player[data-playing="false"] .i-pause{display:none}
+.ad-player[data-muted="true"] .i-vol,.ad-player[data-muted="false"] .i-mute{display:none}
+.ad-copy{display:flex;flex-direction:column;align-items:flex-start;gap:1.2rem;padding:2.4rem}
+.ad-copy h2{margin:0}
+.ad-copy .btn{margin-top:.4rem}
+@media (max-width:860px){.ad-grid{grid-template-columns:1fr;gap:1.5rem}.ad-copy{align-items:center;text-align:center;padding:1.8rem}.ad-copy p{margin-inline:auto}}
+
+/* ---------- home page: full-page scroll snapping (hero + Indulge banner | Our Boba Display | Crowd favorites | counter + footer) ---------- */
+html.snap-page{scroll-snap-type:y mandatory}
+.snap-page .hero-wrap{scroll-snap-align:start;scroll-snap-stop:always}
+.snap-sec{--navh:6rem;box-sizing:border-box;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start;scroll-snap-stop:always}
+.wrap.snap-sec{padding:var(--navh) 0 2rem}                     /* the fixed nav is cleared by padding, so the content is centred in the free space beneath it */
+.snap-sec>h2{margin-bottom:1.6rem}
+.finale{position:relative;z-index:1;box-sizing:border-box;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;scroll-snap-align:end;scroll-snap-stop:always}
+.finale .counter{flex:1;display:flex;align-items:center;padding:6rem 0 2rem}
+.finale .counter .panel{width:100%}
+.finale .foot{margin-top:auto}
+
+/* ---------- Our Story: eyebrow, About timeline, promises, and the home "Story & Ingredients" snap section ---------- */
+.eyebrow{display:block;margin-bottom:.7rem;font:700 .8rem Inter,"Helvetica Neue",system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--amber-d)}
+.story-long h2{margin-bottom:2rem}
+.timeline{list-style:none;margin:0;padding:0 0 0 1.9rem;position:relative;display:grid;gap:1.2rem;max-width:62rem}
+.timeline::before{content:"";position:absolute;left:.5rem;top:.6rem;bottom:.6rem;width:3px;border-radius:3px;background:linear-gradient(var(--amber),rgba(200,122,40,.18))}
+.timeline li{position:relative;padding:1.3rem 1.5rem;border-left:4px solid var(--amber);background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:0 var(--r) var(--r) 0;box-shadow:var(--shadow)}
+.timeline li::before{content:"";position:absolute;left:-2.1rem;top:1.55rem;width:.95rem;height:.95rem;border-radius:50%;background:var(--oat);border:3px solid var(--amber)}
+.timeline .era{display:block;margin-bottom:.35rem;font:700 .78rem Inter,"Helvetica Neue",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-d)}
+.timeline h3{font-size:1.5rem;margin-bottom:.4rem}
+.timeline li.now{background:var(--brown);color:var(--oat);border-left-color:var(--amber)}
+.timeline li.now::before{background:var(--amber)}
+.timeline li.now .era{color:#f0b36a}
+.timeline li.now p{color:rgba(255,252,247,.86)}
+.vows{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin-top:2.4rem}
+.vows div{display:grid;gap:.35rem;padding:1.2rem 1.3rem;border-top:4px solid var(--amber);background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:0 0 var(--r) var(--r);box-shadow:var(--shadow)}
+.vows b{font:600 1.25rem "Inter Tight","Helvetica Neue",Arial,sans-serif;letter-spacing:-.01em}
+.vows span{font-size:.96rem;color:var(--mute)}
+.pop-s{opacity:0;transform:translateY(20px)}
+.pop-s.in{opacity:1;transform:none}
+.story{gap:1.1rem}
+.story-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:2.4rem;align-items:end}
+.story-head h2{margin:0;font-size:clamp(1.9rem,3.4vw,2.8rem)}
+.story-copy{font-size:1.02rem;color:var(--mute)}
+.story-more{display:inline-block;margin-left:.3rem;font-weight:700;color:var(--amber-d);text-decoration:none;border-bottom:2px solid currentColor;white-space:nowrap}
+.story-more:hover{color:var(--brown)}
+.story-path{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem;counter-reset:ch}
+.story-path li{counter-increment:ch;position:relative;padding:.55rem .8rem .6rem;font-size:.86rem;line-height:1.3;color:var(--mute);background:var(--glass);border:1px solid var(--gline);border-top:3px solid var(--amber);border-radius:0 0 12px 12px}
+.story-path b{display:block;font:600 1.02rem "Inter Tight","Helvetica Neue",Arial,sans-serif;color:var(--brown)}
+.story-path li:last-child{background:var(--brown);color:rgba(255,252,247,.84);border-color:var(--brown);border-top-color:var(--amber)}
+.story-path li:last-child b{color:var(--oat)}
+.ing-row{grid-template-columns:repeat(5,1fr);gap:1rem}
+.ing-row .card.ing{padding:.7rem .9rem 1rem;gap:.3rem}
+.ing-row .card.ing h3{font-size:1.15rem}
+.ing-row .card.ing p{font-size:.88rem;line-height:1.4}
+@media (max-width:1000px){
+  .story-head{grid-template-columns:1fr;gap:.8rem}
+  .ing-row{grid-template-columns:repeat(3,1fr)}
+  .story-path{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:700px){
+  .timeline{padding-left:1.5rem}.timeline li{padding:1.1rem 1.1rem}.timeline li::before{left:-1.75rem}
+  .story-path{display:none}
+  .story{gap:.9rem}
+  .story-head h2{font-size:1.75rem}
+  .story-copy{font-size:.95rem}
+  .ing-row{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;gap:.8rem;margin:0 -1.2rem;padding:.2rem 1.2rem 1.1rem;-webkit-overflow-scrolling:touch;perspective:none}
+  .ing-row>.card.ing{flex:0 0 56%;scroll-snap-align:center}
+  .ing-row canvas{touch-action:pan-x pan-y}
+  .pop-s{transform:none}
+}
+
+/* ---------- Our Boba Display ---------- */
+.showcase{position:relative;z-index:1;overflow-x:clip;padding:var(--navh) 0 1.6rem}   /* not a .wrap, so it clears the fixed nav itself and centres in the space beneath it */
+.show-head{position:relative;isolation:isolate;width:min(1200px,calc(100% - 2.4rem));margin:0 auto;text-align:center}
+.show-head::before{content:"";position:absolute;z-index:-1;inset:-1.6rem calc(-1*min(5rem,3vw)) -1.2rem;pointer-events:none;background:radial-gradient(closest-side,rgba(255,250,242,.82) 30%,rgba(255,250,242,.55) 62%,rgba(255,250,242,0))}   /* a soft light halo: the floating pearls and cubes fade out behind the words instead of cutting across them */
+.show-head h2{font:700 clamp(2.7rem,5.6vw,4.3rem)/1.02 "Inter Tight","Helvetica Neue",Arial,sans-serif;letter-spacing:-.04em;color:var(--brown);text-shadow:0 1px 0 rgba(255,252,247,.95),0 2px 22px rgba(255,248,238,.9)}
+.show-head h2::after{content:"";display:block;width:3.6rem;height:.28rem;margin:.85rem auto 0;border-radius:99px;background:var(--amber)}
+.show-head p{max-width:40rem;margin:1rem auto 0;font:500 clamp(1.05rem,1.5vw,1.22rem)/1.62 Inter,"Helvetica Neue",system-ui,sans-serif;letter-spacing:.012em;color:#2b160b;text-shadow:0 0 14px rgba(255,248,238,.95),0 1px 0 rgba(255,252,247,.8)}
+.show-stage{--ch:clamp(220px,38svh,350px);--cw:calc(var(--ch) * 9 / 16);--g:calc(var(--cw) * .3 + 1.2rem);margin-top:.6rem;padding:1.8rem 0 1.6rem;position:relative;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.show-cta{position:relative;z-index:2;display:flex;justify-content:center;margin-top:.4rem}   /* "Check out full menu" sits centred under the parade */
+.show-cta .show-more{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.9rem;font-size:1.05rem}
+.show-cta .show-more span{display:inline-block;transition:transform .35s var(--spring)}
+.show-cta .show-more:hover span,.show-cta .show-more:focus-visible span{transform:translateX(5px)}
+.show-cta .show-more:focus-visible{outline:3px solid var(--brown);outline-offset:3px}
+.show-track{position:relative;display:flex;width:max-content;transform:translateX(-33.3333%);will-change:transform}   /* three identical sets; resting offset == the first frame of the drift, so the hand-over is seamless */
+.show-set{display:flex;gap:var(--g);padding-right:var(--g)}
+.slot{flex:none;width:var(--cw);z-index:var(--z,0)}
+.show-card{display:block;color:var(--brown);text-decoration:none;position:relative}
+.boba-display-card{transition:transform .35s var(--lux),box-shadow .35s var(--lux);will-change:transform,opacity;transform:translate3d(0,0,0)}   /* own GPU layer from the start: the shuffle, spin and drift never wait for one to be built (translate3d(0,0,0) is the translateZ(0) promotion, written so it pairs cleanly with the hover transform) */
+.showcase.in:not(.settled) .slot{will-change:transform,opacity}   /* the moving wrapper only needs its layer while the entrance runs */
+.show-card .frame{display:block;aspect-ratio:9 / 16;contain:layout paint;border-radius:20px;overflow:hidden;background:#d9b283;border:1px solid var(--gline);--rest:0 18px 30px -10px rgba(26,12,6,.38),0 4px 10px rgba(26,12,6,.12);box-shadow:var(--rest);transition:box-shadow .35s var(--lux)}
+.show-card img{display:block;width:100%;aspect-ratio:9 / 16;height:auto;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+.show-card .cap{--fs:clamp(.8rem,calc(var(--cw) * .086),1.05rem);--lh:1.2;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:.45rem;
+  width:100%;height:calc(1.3rem + var(--fs) * var(--lh) * 2 + .45rem + 1.75rem);   /* the plate is exactly as wide as the photo above it (100% of the card), and one fixed height for every drink */
+  position:relative;margin-top:1.17rem;padding:.65rem .55rem .7rem;text-align:center;border-radius:20px;background:rgba(255,252,247,.86);border:1px solid var(--gline);box-shadow:0 8px 20px -6px rgba(26,12,6,.28),0 1px 3px rgba(26,12,6,.1);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}   /* a frosted plate keeps name and price readable over any part of the background gradient */
+.show-card .cap b{display:flex;align-items:center;justify-content:center;flex:none;width:100%;height:calc(var(--fs) * var(--lh) * 2);font:600 var(--fs)/var(--lh) "Inter Tight","Helvetica Neue",Arial,sans-serif;letter-spacing:-.01em;color:var(--brown);text-shadow:0 1px 0 rgba(255,255,255,.7)}   /* the name sits in a fixed two-line box and is centred in it, so one-line and two-line names share the same plate */
+.show-card .cap b span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;max-width:100%;text-align:center;text-wrap:balance}
+.show-card .cap small{display:inline-flex;align-items:center;justify-content:center;flex:none;height:1.75rem;padding:0 .9rem;border-radius:99px;background:var(--amber);color:var(--brown);font:800 1.02rem/1 Inter,"Helvetica Neue",system-ui,sans-serif;letter-spacing:.02em;font-variant-numeric:tabular-nums}   /* price pill pinned to the bottom of the plate */
+/* hover = the same lift as the menu cards. The glow goes on the picture tile (the card itself is transparent, so a shadow on its box would be a square halo around the caption gap) */
+@media (hover:hover){.boba-display-card:hover{transform:translate3d(0,-4px,0)}.boba-display-card:hover .frame{box-shadow:var(--lift),var(--rest)}}
+.boba-display-card:focus-visible{outline:none;transform:translate3d(0,-4px,0)}
+.boba-display-card:focus-visible .frame{box-shadow:var(--lift),var(--rest),0 0 0 2px var(--amber)}
+/* JS arms the section; before the scroll trigger the cards wait, invisible. Without JS they simply sit in a row */
+.showcase.armed:not(.in) .slot{opacity:0}
+/* the entrance (nine cards spin in place, upside down at the halfway point, and land on a spring) is a Web Animation started from main.js.
+   CSS only handles the outer sets of the loop, which fade in as the landing finishes */
+.showcase.in .show-set:not(:nth-child(2)) .slot{animation:slotFade .6s ease 1.1s backwards}
+@keyframes slotFade{from{opacity:0}to{opacity:1}}
+/* phase 2: the left-to-right drift is a Web Animation started from main.js (it eases its speed up and down); this CSS version is only the fallback for browsers without element.animate() */
+.showcase.settled:not(.js-drift) .show-track{animation:drift var(--drift,38s) linear infinite}
+@keyframes drift{from{transform:translateX(-33.3333%)}to{transform:translateX(0)}}
+.showcase.settled:not(.js-drift) .show-stage:hover .show-track,.showcase.settled:not(.js-drift) .show-stage:focus-within .show-track{animation-play-state:paused}
+@media (min-width:700px) and (max-height:820px){.show-stage{margin-top:.1rem;padding:1rem 0 .7rem}.show-card .cap{margin-top:.9rem}.show-head p{margin-top:.7rem}.show-head h2::after{margin-top:.6rem}}
+
+
+/* floating accents: a very small drift, +-4px over 4s, no tilt, 50% opacity. The home page pearls and ice are WebGL (main.js uses the same numbers); any DOM accent just takes .float-accent, with an optional --d (seconds) to offset its phase */
+@keyframes gentleFloat{0%,100%{transform:translateY(4px)}50%{transform:translateY(-4px)}}
+.float-accent{opacity:.5;pointer-events:none;will-change:transform;animation:gentleFloat 4s ease-in-out infinite;animation-delay:calc(var(--d,0) * -1s)}
+
+/* ticker */
+.ticker{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;background:var(--brown);border-color:var(--brown);color:var(--oat)}
+.ticker p{color:rgba(255,252,247,.75)}
+.big{font-size:clamp(2.6rem,7vw,4.6rem);color:var(--amber);font-variant-numeric:tabular-nums}
+.live{display:inline-flex;align-items:center;gap:.5rem;color:var(--amber);font-weight:700}
+.live::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--amber);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(200,122,40,.7)}50%{box-shadow:0 0 0 9px rgba(200,122,40,0)}}
+
+/* about / contact */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+/* contact page: the map panel drops to the bottom of the row so its lower edge lines up with the Send button, and a 2rem offset keeps it clear of the heading */
+.contact-split{align-items:end}
+.contact-split .panel{margin-top:2rem}
+@media (min-width:861px){                                          /* map lock: main.js measures the form in its base (Message) state and offsets the map once, so the map keeps that spot, and its own height, whichever form mode is picked */
+  .contact-split.map-locked{align-items:start}
+  .contact-split.map-locked .panel{align-self:start;margin-top:var(--map-lock,2rem)}
+}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem}
+.steps div{padding:1.4rem;border-left:4px solid var(--amber);background:var(--glass);backdrop-filter:blur(20px);border-radius:0 var(--r) var(--r) 0;box-shadow:var(--shadow)}
+.steps h3{margin-bottom:.4rem}
+/* ingredient cards: slow spin lives in main.js; hover lifts the model, widens the shadow and adds a warm glow */
+.ing-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.ing{text-align:center;align-items:center}
+.ing .model{width:100%;transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.ing canvas{aspect-ratio:1;cursor:grab}
+.card.ing{position:relative;transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .6s ease,box-shadow .5s ease,border-color .5s ease;transition-delay:calc(var(--i,0)*100ms),calc(var(--i,0)*100ms),0s,0s}
+.ing:hover .model{transform:translateY(-8px)}
+.ing:hover{box-shadow:0 34px 60px rgba(26,12,6,.2),0 10px 24px rgba(200,122,40,.28);border-color:rgba(200,122,40,.45)}
+.ing::after{content:"";position:absolute;left:14%;right:14%;bottom:-10px;height:30px;background:radial-gradient(ellipse at 50% 50%,rgba(200,122,40,.6),rgba(200,122,40,0) 70%);filter:blur(10px);opacity:0;transform:scaleX(.55);transition:opacity .5s ease,transform .6s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:-1}
+.ing:hover::after{opacity:1;transform:scaleX(1.15)}
+form{display:flex;flex-direction:column;gap:1rem}   /* flex (not grid) so the closed order block's negative margin can cancel its own gap */
+label{display:grid;gap:.35rem;font-weight:600}
+input,select,textarea{font:inherit;color:var(--brown);background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:12px;padding:.75rem .9rem}
+textarea{min-height:140px;resize:vertical}
+/* conditional order details: expands down and fades in when Topic is "Order or catering" */
+.order-fields{display:grid;grid-template-rows:0fr;margin-top:-1rem;opacity:0;transform:translateY(-10px);visibility:hidden;transition:grid-template-rows .55s cubic-bezier(.22,1,.36,1),margin-top .55s cubic-bezier(.22,1,.36,1),opacity .4s ease,transform .55s cubic-bezier(.22,1,.36,1),visibility 0s linear .55s}
+.order-fields.open{grid-template-rows:1fr;margin-top:0;opacity:1;transform:none;visibility:visible;transition-delay:0s}
+.order-fields-inner{min-height:0;overflow:hidden}
+.order-card{margin:0;min-width:0;padding:1.2rem 1.2rem 1.3rem;display:grid;gap:1rem;border:1px solid rgba(200,122,40,.38);border-radius:18px;background:rgba(255,244,226,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.order-card legend{padding:0 .5rem;font:700 .8rem Inter,"Helvetica Neue",system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-d)}
+.order-card>*:not(legend){opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.order-fields.open .order-card>*:not(legend){opacity:1;transform:none}
+.order-fields.open .order-card>:nth-child(2){transition-delay:.12s}.order-fields.open .order-card>:nth-child(3){transition-delay:.19s}.order-fields.open .order-card>:nth-child(4){transition-delay:.26s}.order-fields.open .order-card>:nth-child(5){transition-delay:.33s}.order-fields.open .order-card>:nth-child(6){transition-delay:.4s}
+.req{color:var(--amber-d)}.opt{font-weight:500;color:var(--mute);font-size:.88rem}
+.order-card label .lbl{font-weight:600}
+.order-card textarea{min-height:0}
+.sugar .lbl{display:block;font-weight:600;margin-bottom:.45rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{display:block;position:relative;font-weight:500;cursor:pointer}
+.chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.chip>span{display:block;padding:.5rem .95rem;border-radius:999px;border:1.5px solid var(--line);background:rgba(255,255,255,.7);font-size:.92rem;transition:background .25s,border-color .25s,transform .3s var(--spring),box-shadow .25s}
+.chip:hover>span{border-color:var(--amber);transform:translateY(-1px)}
+.chip input:checked+span{background:var(--amber);border-color:var(--amber);font-weight:700;box-shadow:0 6px 14px rgba(200,122,40,.35)}
+.chip input:focus-visible+span{outline:3px solid var(--amber);outline-offset:2px}
+/* order details: collapsible blocks, quantity steppers, option groups, live total */
+.reveal{display:grid;grid-template-rows:1fr;transition:grid-template-rows .45s cubic-bezier(.22,1,.36,1),margin-top .45s cubic-bezier(.22,1,.36,1),visibility 0s}
+.reveal.is-closed{grid-template-rows:0fr;margin-top:calc(var(--gap,1rem)*-1);visibility:hidden;transition:grid-template-rows .45s cubic-bezier(.22,1,.36,1),margin-top .45s cubic-bezier(.22,1,.36,1),visibility 0s linear .45s}   /* margin cancels the parent's flex/grid gap so a closed block leaves no hole */
+.reveal-inner{min-height:0;overflow:hidden;padding:6px;margin:-6px;transition:opacity .3s ease}   /* padding lets focus rings and chip shadows show inside the clip */
+.reveal.is-closed .reveal-inner{opacity:0}
+.items .lbl,.fulfil .lbl{display:block;font-weight:600;margin-bottom:.45rem}
+.item-list{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+.item{display:block;padding:.55rem .75rem;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.6);transition:border-color .25s,background .25s,box-shadow .25s}
+.item-row{display:grid;grid-template-columns:4.5rem minmax(0,1fr) auto 4.6rem;align-items:center;gap:.9rem}
+/* sugar + allergies open right under the drink's own card the moment its quantity goes above 0 */
+.item-opts{--gap:0}
+.opts-body{--gap:.85rem;display:flex;flex-direction:column;gap:var(--gap);margin-top:.65rem;padding-top:.8rem;border-top:1px dashed rgba(200,122,40,.5)}
+.opt-lbl{display:flex;flex-wrap:wrap;align-items:center;gap:.2rem .5rem;font-weight:600;line-height:1.3;margin-bottom:.45rem}
+.opt-lbl .req{color:var(--amber-d)}.opt-lbl .opt{font-weight:500;color:var(--mute);font-size:.85rem}
+.opt-lbl small{margin-left:auto;font-weight:500;font-size:.8rem;color:var(--mute)}
+.opt-groups{display:grid;gap:.75rem}
+.grp{display:flex;flex-direction:column;gap:.85rem}
+.grp.multi{padding:.75rem .85rem .85rem;border:1px solid var(--line);border-radius:14px;background:rgba(255,248,236,.7)}
+.grp-head{display:flex;align-items:center;justify-content:space-between;gap:.8rem}
+.grp-title{font:700 1rem/1.3 Inter,"Helvetica Neue",system-ui,sans-serif;color:var(--brown)}
+.grp-pick{color:var(--amber-d)}.grp-pick.todo{font-style:italic;font-weight:600;color:#a4551a}
+.grp-sep{color:var(--mute);font-weight:500}
+.grp-ctl{display:flex;align-items:center;gap:.55rem}
+.grp-del{display:grid;place-items:center;width:2rem;height:2rem;padding:0;border-radius:50%;border:1.5px solid var(--line);background:rgba(255,255,255,.9);color:var(--mute);cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .25s var(--spring)}
+.grp-del svg{width:.85rem;height:.85rem}
+.grp-del:hover{background:#fbe9e0;border-color:#c2410c;color:#9a3412;transform:scale(1.08)}
+.grp-del:focus-visible{outline:3px solid var(--caramel);outline-offset:2px}
+/* sugar levels as compact tiles: a big % with the name underneath; one row on a wide card, two on a phone */
+.chips.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(3.7rem,1fr));gap:.45rem}
+.tiles .chip>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;min-height:3.05rem;padding:.4rem .3rem;border-radius:14px;text-align:center;line-height:1.15}
+.tiles .chip b{font-size:1rem;font-weight:700}
+.tiles .chip small{font-size:.68rem;font-weight:500;opacity:.8}
+.tiles .chip input:checked+span small{opacity:1}
+.grp-need{display:none;margin:.45rem 0 0;font:600 .86rem Inter,"Helvetica Neue",system-ui,sans-serif;color:#b3420f}
+.grp.need .grp-need{display:block}
+.grp.multi.need{border-color:#c2410c;box-shadow:0 0 0 3px rgba(194,65,12,.14)}
+.grp{scroll-margin:7rem 0 2rem}
+.grp.fresh{animation:grpIn .45s cubic-bezier(.22,1,.36,1) both}
+@keyframes grpIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.grp-head{flex-wrap:wrap}
+/* the x-multiplier: [ - ] x3 [ + ] moves cups between groups */
+.gs{width:2.1rem;height:2.1rem;padding:0;border-radius:50%;border:1.5px solid var(--amber);background:rgba(255,255,255,.9);color:var(--amber-d);font:700 1.15rem/1 Inter,"Helvetica Neue",system-ui,sans-serif;cursor:pointer;transition:background .2s,color .2s,transform .25s var(--spring),opacity .2s}
+.gs:hover:not([aria-disabled=true]){background:var(--amber);color:var(--brown);transform:scale(1.08)}
+.gs:active:not([aria-disabled=true]){transform:scale(.94)}
+.gs[aria-disabled=true]{opacity:.35;cursor:not-allowed;border-color:var(--line)}
+.gs:focus-visible{outline:3px solid var(--caramel);outline-offset:2px}
+.grp-x{min-width:3.1rem;padding:.3rem .55rem;border-radius:999px;background:var(--amber);color:var(--brown);text-align:center;font:800 1.05rem/1.2 Inter,"Helvetica Neue",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.grp-add{align-self:flex-start;padding:.55rem 1.05rem;border-radius:999px;border:1.5px dashed var(--amber);background:rgba(255,255,255,.7);color:var(--amber-d);font:700 .9rem Inter,"Helvetica Neue",system-ui,sans-serif;cursor:pointer;transition:background .2s,transform .25s var(--spring),opacity .2s}
+.grp-add[hidden]{display:none}
+.grp-add:hover:not([aria-disabled=true]){background:rgba(200,122,40,.16);transform:translateY(-1px)}
+.grp-add[aria-disabled=true]{opacity:.45;cursor:not-allowed;border-color:var(--line)}
+.grp-add:focus-visible{outline:3px solid var(--caramel);outline-offset:2px}
+.opt-note input{width:100%}
+/* one Allergies / Special Instructions box per cup: [Cup 1] [ ........ ]  /  [Cup 2] [ ........ ] */
+.opt-note .opt-lbl{margin-bottom:.55rem}
+.cup-notes{display:grid;gap:.55rem}
+.cup-note{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:.6rem}
+.cup-note:not(:has(.cup-tag)){grid-template-columns:minmax(0,1fr)}
+.cup-tag{display:inline-block;min-width:4.1rem;padding:.3rem .75rem;border-radius:999px;background:var(--amber);color:var(--brown);font:800 .88rem/1.2 Inter,"Helvetica Neue",system-ui,sans-serif;text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width:480px){.cup-note{grid-template-columns:minmax(0,1fr);gap:.3rem}.cup-tag{justify-self:start}}
+.item.has{border-color:rgba(200,122,40,.6);background:rgba(255,255,255,.88);box-shadow:0 4px 14px rgba(200,122,40,.14)}
+/* the drink's picture on the left of each row: click it to see it full size */
+.item-pic{position:relative;width:4.5rem;height:4.5rem;padding:0;border:1px solid var(--line-warm,#E4D2B6);border-radius:14px;overflow:hidden;background:#E9D6BC;cursor:zoom-in;transition:transform .3s var(--spring),box-shadow .3s}
+.item-pic img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.item-pic:hover{transform:scale(1.04);box-shadow:0 8px 20px rgba(110,70,30,.25)}
+.item-pic:hover img{transform:scale(1.08)}
+.item-pic:active{transform:scale(.98)}
+.item-pic:focus-visible{outline:3px solid var(--caramel);outline-offset:2px}
+.item-zoom{position:absolute;right:4px;bottom:4px;box-sizing:border-box;width:1.4rem;height:1.4rem;padding:.22rem;border-radius:50%;background:rgba(255,255,255,.94);color:var(--amber-d);box-shadow:0 1px 5px rgba(0,0,0,.28);pointer-events:none}
+.item-info{display:grid;line-height:1.3;min-width:0}.item-info small{color:var(--mute);font-weight:500;font-size:.85rem}
+.stepper{display:inline-flex;align-items:center;gap:.35rem}
+.step{width:2.5rem;height:2.5rem;padding:0;border-radius:50%;border:1.5px solid var(--amber);background:rgba(255,255,255,.85);color:var(--amber-d);font:700 1.3rem/1 Inter,"Helvetica Neue",system-ui,sans-serif;cursor:pointer;transition:background .2s,color .2s,transform .25s var(--spring),opacity .2s}
+.step:hover:not([aria-disabled=true]){background:var(--amber);color:var(--brown);transform:scale(1.08)}
+.step:active:not([aria-disabled=true]){transform:scale(.94)}
+.step[aria-disabled=true]{opacity:.35;cursor:not-allowed;border-color:var(--line)}
+.qty{width:3.1rem;padding:.55rem .2rem;text-align:center;font-weight:700;border-radius:10px}
+.line{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;color:var(--amber-d)}
+.line:empty{visibility:hidden}
+.sugar,.fulfil{--gap:.6rem;display:flex;flex-direction:column;gap:var(--gap)}   /* flex, not grid: a closed .reveal inside needs its negative margin to cancel the gap (grid tracks clamp at 0) */
+.sugar .lbl{margin-bottom:0}
+.sugar-each{display:grid;gap:.7rem}
+.sugar-pick{display:grid;gap:.5rem;padding:.7rem .8rem;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.55)}
+.sugar-pick .who{font-weight:600}.sugar-pick .who small{font-weight:500;color:var(--mute)}
+.sugar-empty{margin:0;font-size:.92rem;color:var(--mute)}
+.order-total{display:grid;gap:.35rem;padding:.9rem 1rem;border-radius:14px;background:rgba(255,255,255,.72);border:1px solid rgba(200,122,40,.38)}
+.order-total .row{display:flex;justify-content:space-between;gap:1rem;font-weight:500}
+.order-total .row b{font-weight:700;font-variant-numeric:tabular-nums}
+.order-total .grand{margin-top:.25rem;padding-top:.55rem;border-top:1px dashed rgba(200,122,40,.5);font-size:1.15rem;font-weight:700}
+.order-total .grand b{color:var(--amber-d);display:inline-block}
+.order-total .err{margin:.2rem 0 0;color:#9b2c1d;font-size:.9rem;font-weight:600}
+.bump{animation:bump .5s ease-out}
+@keyframes bump{40%{transform:scale(1.04)}}
+iframe{width:100%;height:100%;min-height:340px;border:0;border-radius:18px;filter:sepia(.25) saturate(.9)}
+.socials{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.2rem}
+.social{display:flex;flex-direction:column;align-items:center;gap:.8rem;padding:1.8rem 1rem;border-radius:var(--r);background:var(--glass);border:1px solid var(--gline);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:var(--brown);text-decoration:none;font-weight:600;box-shadow:var(--shadow);transition:transform .4s var(--spring),border-color .25s,box-shadow .25s}
+.social svg{width:44px;height:44px;color:var(--brown);transition:color .25s,transform .4s var(--spring)}
+.social:hover,.social:focus-visible{transform:translateY(-8px);border-color:var(--amber);box-shadow:0 24px 44px rgba(26,12,6,.2),0 0 0 1px rgba(200,122,40,.45)}
+.social:hover svg,.social:focus-visible svg{color:var(--amber);transform:scale(1.15) rotate(-6deg)}
+.toast{position:fixed;left:50%;bottom:28px;z-index:100;max-width:calc(100% - 2rem);padding:.9rem 1.4rem;border-radius:18px;background:var(--glass);color:var(--brown);font-weight:700;border:1px solid var(--gline);border-left:5px solid var(--amber);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);box-shadow:var(--shadow);opacity:0;transform:translate(-50%,30px);transition:transform .45s var(--spring),opacity .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:860px){
+  .nav nav{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;flex-direction:column;padding:.6rem;border-radius:var(--r);background:rgba(255,252,247,.96);border:1px solid var(--gline);backdrop-filter:blur(20px)}
+  .nav.open nav{display:flex}.burger{display:block}
+  .split,.foot{grid-template-columns:1fr}
+  .contact-split .panel{margin-top:0}
+  .hero{justify-content:flex-start;padding-top:6.2rem}
+  .hero h1{font-size:2.3rem}
+  .hero p{font-size:1.05rem;margin-top:.9rem}
+  .hero .row{margin-top:1.1rem;flex-wrap:nowrap}
+  .hero .btn{padding:.7rem 1.1rem;font-size:.95rem}
+  .has-video .hero{justify-content:flex-end;padding-top:6.2rem;padding-bottom:5rem}
+  .has-video .hero h1{font-size:2.1rem}
+  .hero-video-banner{object-position:70% 50%}
+  .hero-copy{max-width:100%}
+  .wrap{padding:4rem 0}
+  .wrap.snap-sec{padding:5.6rem 0 1.6rem}
+  .finale .counter{padding:5.6rem 0 1.6rem}
+}
+@media (max-width:520px){
+  .item-row{grid-template-columns:3.8rem minmax(0,1fr)}
+  .item-pic{width:3.8rem;height:3.8rem;grid-row:1/3}
+  .item-info{grid-column:2}
+  .stepper{grid-column:2;justify-self:start}
+  .line{grid-column:1/-1;text-align:right}.line:empty{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+
+/* ===== Mission, vision and values (About page) ===== */
+.mvv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem}
+.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.mvv-sub{margin:2.2rem 0 1.2rem}
+@media(max-width:900px){.values-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.mvv-grid,.values-grid{grid-template-columns:1fr}}
+
+
+/* ===== Motion + surface upgrade (merged from rd.css; scoped to body.rd) ===== */
+/* ==========================================================================
+   rd.css  -  motion + surface upgrade for Our Story, Menu and Contact ONLY.
+   Loaded after style.css on aboutus.html, products.html and contactus.html.
+   Everything is scoped to body.rd, so index.html (Home) is never affected.
+   Easing for every reveal, hover lift and tab move: cubic-bezier(.22, 1, .36, 1)
+   ========================================================================== */
+
+/* ---------- tokens (on body so the quick-view dialog can use them too) ---------- */
+body.rd{
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ink:#1C140D;
+  --card:#FAF6F0;
+  --sand:#F1DEC9;
+  --sand-2:#EFE0CE;
+  --caramel:#C87A28;
+  --caramel-d:#9C5116;
+  --line-warm:rgba(200,122,40,.2);
+  --warm:0 14px 34px rgba(146,86,24,.14),0 2px 8px rgba(28,20,13,.06);
+  --warm-up:0 24px 48px rgba(146,86,24,.22),0 4px 12px rgba(28,20,13,.08);
+  --glow:0 0 0 1px rgba(200,122,40,.6),0 0 30px 2px rgba(200,122,40,.24),0 26px 50px rgba(146,86,24,.22);
+}
+
+/* exact sand background; the soft caramel glow is kept very low so the base stays #F1DEC9 to #EFE0CE */
+body.rd::before{
+  background:
+    radial-gradient(900px 560px at 92% -8%,rgba(200,122,40,.12),transparent 70%),
+    linear-gradient(180deg,#F1DEC9 0%,#EFE0CE 100%);
+}
+
+/* the shared nav and footer sit outside <main>, so they stay identical to Home.
+   Inside <main> the existing component variables are re-pointed at the cream card palette. */
+body.rd main{
+  --brown:#1C140D;
+  --glass:#FAF6F0;
+  --gline:rgba(200,122,40,.2);
+  --mute:rgba(28,20,13,.76);
+  --shadow:var(--warm);
+  --spring:cubic-bezier(.22,1,.36,1);
+  --lux:cubic-bezier(.22,1,.36,1);
+  --spr:cubic-bezier(.34,1.56,.64,1);   /* spring fallback: one overshoot, then rest */
+  color:var(--ink);
+}
+body.rd main :is(.card,.timeline li,.vows div,.steps div,.panel,.social){
+  backdrop-filter:none;-webkit-backdrop-filter:none;   /* the surface is a solid cream now, so the blur is pure cost */
+}
+body.rd main a{color:var(--caramel-d)}
+body.rd main .btn{color:var(--ink)}
+
+/* ---------- scroll reveal ----------
+   hidden state is opacity only; the rise is a CSS animation that fills backwards, so once it
+   finishes the element's own :hover transform / transition is free to take over. */
+@keyframes rdRise{from{opacity:0;transform:translate3d(0,28px,0)}to{opacity:1;transform:none}}
+@keyframes rdFail{to{opacity:1}}                      /* safety net: if the script never runs, nothing stays hidden */
+.rd-js body.rd [data-rv]:not(.in){opacity:0;animation:rdFail 0s 3s forwards}
+body.rd [data-rv].in{animation:rdRise .95s var(--ease) calc(var(--rv,0)*90ms) backwards}
+
+/* headline: words rise out of a mask, once, on load */
+.rd-js .rd-split:not(.rd-ready){opacity:0;animation:rdFail 0s 2.5s forwards}
+.rd-split .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .03em .16em;margin-bottom:-.16em}
+.rd-split .w>span{display:inline-block;animation:rdWord 1.05s var(--ease) calc(var(--wi,0)*75ms + 120ms) backwards}
+@keyframes rdWord{from{transform:translate3d(0,110%,0)}to{transform:none}}
+
+/* ==========================================================================
+   OUR STORY
+   ========================================================================== */
+/* timeline: faint full-length track, an amber line that draws down it as you scroll */
+body.rd .timeline::before{left:calc(.5rem - 1px);background:rgba(200,122,40,.22)}
+body.rd .timeline::after{
+  content:"";position:absolute;z-index:1;left:calc(.5rem - 1px);top:.6rem;bottom:.6rem;width:3px;border-radius:3px;
+  background:linear-gradient(#C87A28,#E0A25A);
+  transform-origin:50% 0;transform:scaleY(var(--p,0));
+  filter:drop-shadow(0 0 5px rgba(200,122,40,.55));pointer-events:none;
+}
+body.rd .timeline li::before{
+  z-index:2;
+  transition:transform .6s var(--ease),background-color .4s var(--ease),box-shadow .6s var(--ease);
+}
+body.rd .timeline li.lit::before{background:var(--caramel);transform:scale(1.2);box-shadow:0 0 0 6px rgba(200,122,40,.2)}
+/* the dark "Today" node waits for the line like the others, instead of arriving pre-filled */
+body.rd .timeline li.now::before{background:var(--oat)}
+body.rd .timeline li.now.lit::before{background:var(--caramel)}
+
+/* story blocks: card hover = rise 4px + warm shadow */
+body.rd .timeline li,
+body.rd .vows div,
+body.rd .steps div{
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+}
+@media (hover:hover){
+  body.rd .timeline li:hover,
+  body.rd .vows div:hover,
+  body.rd .steps div:hover{transform:translateY(-4px);box-shadow:var(--warm-up)}
+}
+body.rd .timeline li.now{box-shadow:0 18px 40px rgba(28,20,13,.28)}
+@media (hover:hover){body.rd .timeline li.now:hover{box-shadow:0 26px 52px rgba(28,20,13,.34)}}
+
+/* "What goes in your cup": markup, canvases and 3D untouched. Only the entrance easing is aligned
+   with the other pages (same 100ms stagger, smoother curve). */
+body.rd .pop.in{animation:fadeSlide .85s var(--ease) calc(var(--i,0)*110ms) backwards}
+
+/* ==========================================================================
+   MENU
+   ========================================================================== */
+.menu-lede{margin:1rem 0 2rem}
+.menu-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 1.4rem}
+.tabs{
+  position:relative;display:inline-flex;gap:.2rem;padding:.35rem;max-width:100%;
+  background:var(--card);border:1px solid var(--line-warm);border-radius:999px;box-shadow:var(--warm);
+  overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab-pill{
+  position:absolute;top:.35rem;bottom:.35rem;left:0;width:var(--w,0);border-radius:999px;
+  background:var(--caramel);box-shadow:0 6px 16px rgba(200,122,40,.38);
+  transform:translateX(var(--x,0));pointer-events:none;
+}
+.tab-pill.go{transition:transform .6s var(--ease),width .6s var(--ease)}
+.tabs button{
+  position:relative;z-index:1;flex:none;white-space:nowrap;cursor:pointer;
+  font:600 .98rem Inter,"Helvetica Neue",system-ui,sans-serif;color:var(--ink);background:none;border:0;
+  padding:.6rem 1.15rem;border-radius:999px;transition:color .3s var(--ease);
+}
+.tabs button:not([aria-pressed=true]):hover{color:var(--caramel-d)}
+.tabs button:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+.tabs .n{margin-left:.45rem;font-size:.8em;font-weight:700;opacity:.55;font-variant-numeric:tabular-nums;transition:opacity .3s}
+.tabs button[aria-pressed=true] .n{opacity:.8}
+.menu-count{font-size:.95rem;color:var(--mute);margin:0}
+
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:1.6rem;margin-top:2rem}
+.dcard{
+  position:relative;display:flex;flex-direction:column;
+  background:var(--card);border:1px solid var(--line-warm);border-radius:var(--r);box-shadow:var(--warm);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease);
+}
+.dcard[hidden]{display:none}
+@media (hover:hover){.dcard:hover{transform:translateY(-6px);border-color:rgba(200,122,40,.75);box-shadow:var(--glow)}}
+.dcard:focus-within{border-color:rgba(200,122,40,.75);box-shadow:var(--glow)}
+.dpic{position:relative;margin:.7rem .7rem 0;border-radius:18px;overflow:hidden;aspect-ratio:1/1;background:#E9D6BC;contain:layout paint}
+.dpic img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+@media (hover:hover){.dcard:hover .dpic img{transform:scale(1.07)}}
+.dpic{cursor:pointer}
+.dquick{
+  position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;gap:.5rem;padding:1rem;pointer-events:none;
+  background:linear-gradient(to top,rgba(28,20,13,.46),rgba(28,20,13,0) 52%);
+  opacity:0;transition:opacity .5s var(--ease);
+}
+.dq{
+  pointer-events:auto;cursor:pointer;font:700 .88rem Inter,"Helvetica Neue",system-ui,sans-serif;color:var(--ink);background:var(--card);border:0;text-decoration:none;
+  padding:.52rem 1.05rem;border-radius:999px;box-shadow:0 8px 20px rgba(28,20,13,.28);
+  transform:translateY(14px);transition:transform .55s var(--ease),background-color .3s var(--ease),box-shadow .3s var(--ease);
+}
+.dq-go{background:var(--caramel)}
+.dq:hover{background:#fff;box-shadow:0 10px 24px rgba(28,20,13,.36);transform:translateY(-2px)!important}
+.dq-go:hover{background:#E0963A}
+.dq:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.dcard:hover .dq,.dq:focus-visible,.dcard:focus-within .dq{transform:none}
+.dcard:hover .dquick,.dcard:focus-within .dquick{opacity:1}
+.dq-go{transition-delay:.04s}
+@media (hover:none){.dquick{opacity:1;background:none}.dq{transform:none}}
+/* crisp warm border that tracks the pointer */
+.dcard::after{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:2px;pointer-events:none;opacity:0;transition:opacity .5s var(--ease);
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),#F0A646,rgba(200,122,40,.35) 45%,rgba(200,122,40,0) 70%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+}
+@media (hover:hover){.dcard:hover::after{opacity:1}}
+.dbody{display:flex;flex-direction:column;gap:.5rem;padding:1rem 1.3rem 1.3rem;flex:1}
+.dbody h3{font-size:1.35rem}
+.dbody p{font-size:.97rem}
+.dtags{display:flex;flex-wrap:wrap;gap:.4rem}
+.dtags span{font-size:.78rem;font-weight:600;padding:.12rem .62rem;border-radius:999px;border:1px solid var(--caramel);color:var(--caramel-d)}
+.dtags .pb{background:var(--ink);color:#FAF6F0;border-color:var(--ink)}
+.dtags .pb::before{content:"";display:inline-block;width:.55em;height:.55em;margin-right:.4em;border-radius:0 100% 0 100%;background:#7fd08a}
+.dbuy{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-top:auto;padding-top:.7rem}
+.dbuy b{font:600 1.5rem "Inter Tight","Helvetica Neue",Arial,sans-serif;letter-spacing:-.02em;color:var(--caramel)}
+.dact{display:flex;gap:.45rem}
+body.rd .btn.ghost{border-color:var(--ink)}
+body.rd .btn.ghost:hover{background:rgba(200,122,40,.14)}
+
+/* ---------- quick view dialog ---------- */
+.qv{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);width:min(880px,calc(100% - 1.6rem));max-width:none;overflow:visible}
+.qv::backdrop{background:rgba(28,20,13,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.qv[open]::backdrop{animation:qvFade .45s var(--ease) both}
+.qv.closing::backdrop{animation:qvFade .32s var(--ease) reverse both}
+.qv-card{
+  position:relative;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  max-height:calc(100dvh - 2rem);background:var(--card);border-radius:28px;overflow:hidden;
+  box-shadow:0 40px 90px rgba(28,20,13,.35),0 0 0 1px rgba(200,122,40,.25);
+}
+.qv[open] .qv-card{animation:qvIn .65s var(--ease) both}
+.qv.closing .qv-card{animation:qvOut .32s var(--ease) both}
+@keyframes qvFade{from{opacity:0}to{opacity:1}}
+@keyframes qvIn{from{opacity:0;transform:translate3d(0,26px,0) scale(.96)}to{opacity:1;transform:none}}
+@keyframes qvOut{to{opacity:0;transform:translate3d(0,14px,0) scale(.97)}}
+.qv-pic{position:relative;min-height:100%;background:#E9D6BC}
+.qv-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.qv-body{position:relative;display:flex;flex-direction:column;gap:.85rem;padding:1.8rem 1.8rem 1.6rem;overflow:auto}
+.qv-body h2{font-size:clamp(1.6rem,3vw,2.1rem);margin:0;padding-right:2.6rem}
+.qv-price{font:600 1.35rem "Inter Tight","Helvetica Neue",Arial,sans-serif;color:var(--caramel);margin:0}
+.qv-desc{margin:0;font-size:.98rem}
+.qv-x{
+  position:absolute;top:1rem;right:1rem;width:2.5rem;height:2.5rem;display:grid;place-items:center;cursor:pointer;
+  border:1.5px solid var(--line-warm);border-radius:50%;background:var(--card);color:var(--ink);
+  transition:transform .45s var(--ease),background-color .3s,border-color .3s;
+}
+.qv-x:hover{transform:rotate(90deg);background:var(--caramel);border-color:var(--caramel)}
+.qv-x:focus-visible{outline:3px solid var(--caramel);outline-offset:2px}
+.qv-set{border:0;padding:0;min-width:0;display:grid;gap:.5rem}
+.qv-set legend{padding:0;margin-bottom:.45rem;font-weight:700;font-size:.95rem}
+.qv .chip>span{background:#F6EEE3;border-color:rgba(28,20,13,.14)}
+.qv .chip:hover>span{border-color:var(--caramel)}
+.qv .chip input:checked+span{background:var(--caramel);border-color:var(--caramel);color:var(--ink)}
+.qv-hint{margin:.1rem 0 0;font-size:.88rem;min-height:1.3em}
+.qv-sum{margin:.2rem 0 0;padding-top:.9rem;border-top:1px dashed rgba(200,122,40,.5);font-weight:600}
+.qv-act{display:flex;margin-top:.2rem}
+.qv-act .btn{width:100%;text-align:center}
+body.rd.qv-lock{overflow:hidden}
+
+/* ==========================================================================
+   CONTACT
+   ========================================================================== */
+.rd-contact .contact-split{grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:2rem}
+.rd-card,
+body.rd main .panel{
+  background:var(--card);border:1px solid var(--line-warm);border-radius:28px;box-shadow:var(--warm);
+}
+.rd-card{padding:clamp(1.4rem,3vw,2.6rem)}
+.rd-card h1{font-size:clamp(2.3rem,4.2vw,3.4rem)}
+.rd-card .lede{margin:1rem 0 1.9rem}
+body.rd main .panel{padding:clamp(1.3rem,2.4vw,2rem)}
+.rd-contact .panel h2{margin-bottom:0;font-size:1.8rem}
+
+/* floating labels */
+.rd-card .field{display:block;position:relative}
+.rd-card .field :is(input,select,textarea){
+  width:100%;display:block;font:inherit;color:var(--ink);font-weight:500;
+  background:rgba(239,224,206,.42);border:1.5px solid rgba(28,20,13,.16);border-radius:14px;
+  padding:1.6rem 1rem .6rem;
+  transition:border-color .35s var(--ease),box-shadow .35s var(--ease),background-color .35s var(--ease);
+}
+.rd-card .field textarea{min-height:150px;resize:vertical}
+.rd-card .field select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:2.8rem;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239C5116' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .95rem center;background-size:1.15rem}
+.rd-card .field>span{
+  position:absolute;left:1rem;top:1.08rem;pointer-events:none;transform-origin:0 0;
+  font-weight:500;color:rgba(28,20,13,.62);
+  transition:transform .4s var(--ease),color .3s var(--ease);
+}
+.rd-card .field :is(input,textarea):focus+span,
+.rd-card .field :is(input,textarea):not(:placeholder-shown)+span,
+.rd-card .field select:focus+span,
+.rd-card .field select:valid+span{transform:translateY(-.78rem) scale(.78);color:var(--caramel-d);font-weight:600}
+.rd-card :is(input:not([type=radio]):not([type=checkbox]),select,textarea):focus,
+.rd-card :is(input:not([type=radio]):not([type=checkbox]),select,textarea):focus-visible{
+  outline:none;border-color:var(--caramel);background-color:#FFFCF7;box-shadow:0 0 0 4px rgba(200,122,40,.22);
+}
+.rd-card .field :is(input,select,textarea):user-invalid{border-color:#9b2c1d}
+.rd-card .field :is(input,select,textarea):user-invalid+span{color:#9b2c1d}
+
+/* the order block keeps its behaviour; only its surfaces follow the cream palette */
+.rd-card .order-card{background:rgba(239,224,206,.4);border-color:rgba(200,122,40,.4)}
+.rd-card .order-card :is(input,textarea):not([type=radio]):not([type=checkbox]){background:#FFFCF7}
+
+/* send button: lift on hover, press on click, ripple from the pointer, label rolls to "Sent" */
+.rd-card .btn.send{
+  position:relative;overflow:hidden;align-self:flex-start;min-width:12.5rem;
+  display:inline-flex;align-items:center;justify-content:center;gap:.7rem;padding:1rem 1.7rem;font-size:1.05rem;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+}
+.rd-card .btn.send:hover{transform:translateY(-3px);box-shadow:0 18px 32px rgba(200,122,40,.48)}
+.rd-card .btn.send:active{transform:translateY(1px) scale(.97);box-shadow:0 4px 10px rgba(200,122,40,.35);transition-duration:.12s}
+.rd-card .btn.send:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.send .bt{display:grid;overflow:hidden;height:1.4em;line-height:1.4em}
+.send .bt>span{grid-area:1/1;transition:transform .55s var(--ease)}
+.send .bt-b{transform:translateY(125%)}
+.send.sent .bt-a{transform:translateY(-125%)}
+.send.sent .bt-b{transform:none}
+.send .bt-i{width:1.15rem;height:1.15rem;flex:none;transition:transform .5s var(--ease)}
+.send:hover .bt-i{transform:translateX(4px) rotate(-8deg)}
+.send.sent .bt-i{transform:translateX(0) rotate(0)}
+.send .rip{position:absolute;border-radius:50%;background:rgba(255,252,247,.5);transform:scale(0);pointer-events:none;animation:rdRip .7s var(--ease) forwards}
+@keyframes rdRip{to{transform:scale(1);opacity:0}}
+
+/* hours + location cards inside the map panel */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1.1rem 0 1.2rem}
+.info-card{
+  display:grid;align-content:start;gap:.2rem;padding:1rem 1.05rem 1.1rem;
+  background:#F5ECDF;border:1px solid var(--line-warm);border-radius:18px;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .4s var(--ease),background-color .4s var(--ease);
+}
+@media (hover:hover){
+  .info-card:hover{transform:translateY(-4px);background:#FFFCF7;border-color:rgba(200,122,40,.6);box-shadow:0 0 0 1px rgba(200,122,40,.3),0 16px 30px rgba(146,86,24,.18)}
+  .info-card:hover .ic{background:var(--caramel);color:var(--ink);transform:rotate(-6deg) scale(1.08)}
+}
+.info-card .ic{
+  width:2.4rem;height:2.4rem;display:grid;place-items:center;margin-bottom:.4rem;border-radius:12px;
+  background:rgba(200,122,40,.16);color:var(--caramel-d);
+  transition:transform .5s var(--ease),background-color .4s var(--ease),color .4s var(--ease);
+}
+.info-card .ic svg{width:1.25rem;height:1.25rem}
+.info-card h3{font-size:1.1rem}
+.info-card p{font-size:.93rem;line-height:1.45}
+.status{display:inline-flex;align-items:center;gap:.45rem;margin-top:.35rem;font-weight:700;font-size:.86rem;color:var(--ink)}
+.status::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:#9b2c1d;flex:none}
+.status.open::before{background:#5F8A3E;animation:rdPulse 2.4s ease-out infinite}
+@keyframes rdPulse{0%{box-shadow:0 0 0 0 rgba(95,138,62,.5)}70%,100%{box-shadow:0 0 0 7px rgba(95,138,62,0)}}
+.status:empty{display:none}
+
+/* social cards: same cream surface, same easing */
+body.rd main .social{transition:transform .5s var(--ease),border-color .3s var(--ease),box-shadow .5s var(--ease)}
+body.rd main .social:hover,body.rd main .social:focus-visible{transform:translateY(-6px);box-shadow:var(--glow)}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .rd-contact .contact-split{grid-template-columns:1fr}
+  .qv-card{grid-template-columns:1fr;overflow:auto}
+  .qv-pic{min-height:0;aspect-ratio:16/10}
+  .qv-body{overflow:visible}
+}
+@media (max-width:860px){
+  body.rd .wrap.page-top{padding-top:7rem}      /* the shared mobile .wrap padding was pulling titles under the floating nav */
+}
+@media (max-width:700px){
+  body.rd .timeline::before{left:calc(.5rem - 2.4px)}
+  body.rd .timeline::after{left:calc(.5rem - 2.4px)}
+}
+@media (max-width:520px){
+  .info-grid{grid-template-columns:1fr}
+  .rd-card .btn.send{align-self:stretch}
+  .dbuy{flex-wrap:wrap}
+}
+
+/* ---------- reduced motion: content is simply there ---------- */
+@media (prefers-reduced-motion:reduce){
+  .rd-js body.rd [data-rv]:not(.in),.rd-js .rd-split:not(.rd-ready){opacity:1;animation:none}
+  .tab-pill.go{transition:none}
+  body.rd .timeline::after{transform:scaleY(1)}
+}
+
+/* ==========================================================================
+   OUR STORY (round 2): typewriter intro, two-column timeline cards with animated visuals,
+   animated line icons on the promise + brewing cards, floating section arrows.
+   About page only (every selector here hangs off body.rd-about or an element that only exists there).
+   ========================================================================== */
+
+/* ---------- typewriter intro ---------- */
+.tw{position:relative}
+.tw .sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tw-w{white-space:nowrap}
+.tw-c{opacity:0;transition:opacity .09s linear}
+.tw-c.on{opacity:1}
+.tw-caret{display:inline-block;width:0;height:1.1em;vertical-align:-.2em;position:relative}
+.tw-caret::after{content:"";position:absolute;left:1px;top:0;bottom:0;width:2px;border-radius:2px;background:#C87A28;box-shadow:0 0 6px rgba(200,122,40,.45);animation:twBlink 1.05s ease-in-out infinite;transition:opacity .5s var(--ease)}
+.tw-caret.out::after{animation:none;opacity:0}   /* soft fade once the writing is finished */
+@keyframes twBlink{0%,100%{opacity:1}50%{opacity:.12}}
+.intro p+p{margin-top:1.35rem}   /* a crisp paragraph break between the two paragraphs */
+.intro p{cursor:default}
+
+/* section headings: an amber underline is "written" under each heading as it scrolls into view */
+body.rd-about main h2[data-rv]::after{content:"";display:block;height:.28rem;width:0;margin-top:.65rem;border-radius:99px;background:var(--caramel);transition:width 1.2s var(--ease) .45s}
+body.rd-about main h2[data-rv].in::after{width:3.6rem}
+
+/* ---------- timeline cards: copy left, animated visual right ---------- */
+body.rd .timeline li{display:grid;grid-template-columns:minmax(0,1fr) clamp(118px,23%,196px);align-items:center;gap:1.5rem}
+.tl-copy{min-width:0}
+.tl-art{position:relative;width:100%;aspect-ratio:1;display:grid;place-items:center;perspective:640px;transition:transform .8s var(--ease)}
+.tl-disc{position:absolute;inset:4%;border-radius:50%;
+  background:radial-gradient(circle at 34% 26%,#FFFDF8 0%,#F7ECDB 52%,#EBD3B2 100%);
+  box-shadow:inset 0 0 0 1px rgba(200,122,40,.24),inset 0 -12px 24px rgba(200,122,40,.12),0 16px 30px rgba(146,86,24,.16)}
+.tl-art .art{position:relative;width:90%;height:90%;overflow:visible}
+@media (hover:hover){body.rd .timeline li:hover .tl-art{transform:translateY(-4px) scale(1.05)}}
+body.rd .timeline li.now .tl-disc{
+  background:radial-gradient(circle at 50% 46%,rgba(224,150,50,.38),rgba(200,122,40,.1) 60%,rgba(200,122,40,0) 74%);
+  box-shadow:inset 0 0 0 1px rgba(224,162,90,.4),0 0 44px rgba(200,122,40,.3)}
+/* each card's text is "written" left to right once the card arrives */
+@keyframes rdWrite{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes rdUnclip{to{clip-path:none}}
+.rd-js body.rd-about .timeline li:not(.in) .tl-copy p{clip-path:inset(0 100% 0 0);animation:rdUnclip 0s 3s forwards}
+body.rd-about .timeline li.in .tl-copy p{animation:rdWrite 1.5s var(--ease) .4s backwards}
+
+/* art: shared bits. transform-box is opted into per animated element (never on every child: shapes carrying a transform="" attribute would be shifted) */
+.art-leaf .dew,.art-fire .fire-glow,.art-fire .flame,.art-fire .kettle,.art-roll .dp,.art-shake .ic,.art-glow .halo,.art-glow .gp,.art-glow .spark,.ic-hourglass .sand-t,.ic-hourglass .sand-b,.ic-seal .seal-star,.ic-sprig .bud,.ic-steep .rip,.ic-simmer .bub{transform-box:fill-box}
+.art-shadow{fill:rgba(28,20,13,.2)}
+.rd-js .tl-art:not(.on) *,.rd-js .ic3d:not(.on) *{animation-play-state:paused!important}
+@keyframes spinZ{to{transform:rotate(360deg)}}
+@keyframes floatY{0%,100%{transform:translateY(3px)}50%{transform:translateY(-5px)}}
+
+/* 1. the leaf: a sprig of two leaves and a bud, swaying through a 3D turn, dew glinting */
+.art-leaf{transform-origin:50% 92%;animation:leafSway 6.5s ease-in-out infinite}
+@keyframes leafSway{0%,100%{transform:rotateY(-36deg) rotateZ(-2.5deg) translateY(4px)}50%{transform:rotateY(36deg) rotateZ(2.5deg) translateY(-6px)}}
+.art-leaf .dew{transform-origin:center;animation:twinkle 3s ease-in-out infinite}
+.art-leaf .dew.d2{animation-delay:-1.5s}
+@keyframes twinkle{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.18)}}
+
+/* 2. the fire: flickering flames under an iron kettle, steam and sparks rising */
+.art-fire .fire-glow{transform-origin:50% 60%;animation:glowPulse 2.2s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{opacity:.7;transform:scale(.94)}50%{opacity:1;transform:scale(1.07)}}
+.art-fire .flame{transform-origin:50% 100%;animation:flick 1.15s ease-in-out infinite}
+.art-fire .f2{animation-duration:.9s;animation-delay:-.35s}
+.art-fire .f3{animation-duration:1.4s;animation-delay:-.7s}
+@keyframes flick{0%,100%{transform:scale(1,1) skewX(0)}25%{transform:scale(.93,1.1) skewX(3deg)}50%{transform:scale(1.06,.93) skewX(-2deg)}75%{transform:scale(.97,1.07) skewX(-4deg)}}
+.art-fire .kettle{transform-origin:50% 0;animation:kettleSway 4.2s ease-in-out infinite}
+@keyframes kettleSway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+.art-fire .steam{fill:none;stroke:#B98C5A;stroke-width:3.4;stroke-linecap:round;opacity:0;animation:steamUp 3.2s ease-in-out infinite}
+.art-fire .st2{animation-delay:-1.1s}.art-fire .st3{animation-delay:-2.1s}
+@keyframes steamUp{0%{opacity:0;transform:translateY(8px)}30%{opacity:.8}100%{opacity:0;transform:translateY(-12px)}}
+.art-fire .ember{opacity:0;animation:ember 2.4s ease-out infinite}
+.art-fire .e2{animation-delay:-.8s}.art-fire .e3{animation-delay:-1.6s}
+@keyframes ember{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(9px,-48px)}}
+
+/* 3. the roll: pearls rolling along a wooden board, texture turning with the distance travelled */
+.art-roll{clip-path:circle(47% at 50% 50%)}
+.art-roll .pearl{transform:translate(var(--x0),var(--y));animation:rollX 7s linear infinite}
+.art-roll .pearl .spin{transform-box:view-box;transform-origin:0 0;animation:rollSpin 7s linear infinite}
+.art-roll .pr2,.art-roll .pr2 .spin{animation-delay:-2.35s}
+.art-roll .pr3,.art-roll .pr3 .spin{animation-delay:-4.7s}
+@keyframes rollX{from{transform:translate(-34px,var(--y))}to{transform:translate(236px,var(--y))}}
+@keyframes rollSpin{to{transform:rotate(var(--rot))}}
+.art-roll .dp{fill:#F3E1C2;opacity:0;transform-origin:center;animation:puff 3.4s ease-out infinite}
+.art-roll .d2{animation-delay:-1.1s}.art-roll .d3{animation-delay:-2.2s}
+@keyframes puff{0%{opacity:0;transform:translateY(0) scale(.6)}25%{opacity:.8}100%{opacity:0;transform:translateY(-16px) scale(2)}}
+
+/* 4. the shake: a cup of tea, ice and pearls, shaken hard then left to settle */
+.art-shake .cupg{transform-box:view-box;transform-origin:100px 176px;animation:cupShake 2.8s ease-in-out infinite}
+@keyframes cupShake{0%,46%,100%{transform:translate(0,0) rotate(0)}4%{transform:translate(-5px,-6px) rotate(-10deg)}10%{transform:translate(5px,-8px) rotate(10deg)}16%{transform:translate(-5px,-6px) rotate(-10deg)}22%{transform:translate(5px,-8px) rotate(10deg)}28%{transform:translate(-4px,-4px) rotate(-7deg)}34%{transform:translate(3px,-4px) rotate(5deg)}40%{transform:translate(-1px,-1px) rotate(-2deg)}}
+.art-shake .liquid{animation:slosh 2.8s ease-in-out infinite}
+@keyframes slosh{0%,46%,100%{transform:translateY(0)}10%{transform:translateY(-5px)}22%{transform:translateY(4px)}34%{transform:translateY(-3px)}}
+.art-shake .bp{animation:pearlHop 2.8s ease-in-out infinite}
+.art-shake .b2{animation-delay:.05s}.art-shake .b3{animation-delay:.1s}.art-shake .b4{animation-delay:.07s}.art-shake .b5{animation-delay:.13s}.art-shake .b6{animation-delay:.04s}
+@keyframes pearlHop{0%,50%,100%{transform:translateY(0)}12%{transform:translateY(-7px)}24%{transform:translateY(2px)}36%{transform:translateY(-3px)}}
+.art-shake .ic{transform-origin:center;animation:iceTumble 2.8s ease-in-out infinite}
+.art-shake .i2{animation-delay:.08s}
+@keyframes iceTumble{0%,50%,100%{transform:translate(0,0) rotate(0)}14%{transform:translate(8px,-8px) rotate(28deg)}28%{transform:translate(-6px,4px) rotate(-22deg)}40%{transform:translate(2px,-2px) rotate(8deg)}}
+.art-shake .arc{stroke:#C87A28;stroke-width:3;stroke-linecap:round;opacity:0;animation:arcFlash 2.8s ease-in-out infinite}
+.art-shake .a2{animation-delay:.06s}
+@keyframes arcFlash{0%,2%,46%,100%{opacity:0}10%,24%{opacity:.85}}
+.art-shake .drop{fill:#C87A28;opacity:0;animation:dropFly 2.8s ease-out infinite}
+.art-shake .dr2{animation-delay:.12s}.art-shake .dr3{animation-delay:.2s}
+@keyframes dropFly{0%,8%{opacity:0;transform:translate(0,0)}16%{opacity:.9}44%{opacity:0;transform:translate(var(--dx,-10px),-22px)}100%{opacity:0}}
+.art-shake .dr2{--dx:10px}.art-shake .dr3{--dx:2px}
+
+/* 5. modern perfection: a glossy glowing pearl, light sweeping its rim, sparks in orbit */
+.art-glow .halo{transform-origin:center;animation:haloPulse 3.2s ease-in-out infinite}
+@keyframes haloPulse{0%,100%{opacity:.7;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
+.art-glow .gp{animation:floatY 4.6s ease-in-out infinite}
+.art-glow .sweep{transform-box:view-box;transform-origin:100px 100px;animation:spinZ 6s linear infinite}
+.art-glow .spark{fill:#FFE2B0;transform-origin:center;animation:twinkle 2.6s ease-in-out infinite}
+.art-glow .s2{animation-delay:-1.3s;fill:#E0A25A}
+
+/* ---------- animated line icons on the promise + brewing cards ---------- */
+.ic3d{display:grid;place-items:center;width:54px;height:54px;margin-bottom:.45rem;border-radius:16px;color:var(--caramel-d);
+  background:linear-gradient(145deg,#FFFDF8,#F1E2CC);
+  box-shadow:inset 0 1px 0 #fff,0 8px 18px rgba(146,86,24,.18),0 1px 2px rgba(28,20,13,.08);
+  transform:perspective(320px) rotateX(0) rotateY(0);transition:transform .7s var(--ease),box-shadow .6s var(--ease)}
+.vows .ic3d{justify-self:start}
+.ic3d .ic{width:36px;height:36px;overflow:visible}
+@media (hover:hover){
+  .vows div:hover .ic3d,.steps div:hover .ic3d{transform:perspective(320px) rotateY(-16deg) rotateX(9deg) translateY(-3px);box-shadow:inset 0 1px 0 #fff,-8px 14px 24px rgba(146,86,24,.26)}
+}
+/* patience: an hourglass that drains, then turns over */
+.ic-hourglass .hg{transform-box:view-box;transform-origin:24px 24px;animation:hgFlip 8s ease-in-out infinite}
+@keyframes hgFlip{0%,86%{transform:rotate(0)}100%{transform:rotate(180deg)}}
+.ic-hourglass .sand-t{transform-origin:50% 100%;animation:sandT 8s linear infinite}
+.ic-hourglass .sand-b{transform-origin:50% 100%;animation:sandB 8s linear infinite}
+@keyframes sandT{0%{transform:scaleY(1)}80%,100%{transform:scaleY(.03)}}
+@keyframes sandB{0%{transform:scaleY(.03)}80%,100%{transform:scaleY(1)}}
+.ic-hourglass .stream{animation:streamFlow .8s linear infinite,streamVis 8s linear infinite}
+@keyframes streamFlow{to{stroke-dashoffset:-4.5}}
+@keyframes streamVis{0%,78%{opacity:1}82%,100%{opacity:0}}
+/* craftsmanship: a hand-checked seal, its ring of stitches slowly turning */
+.ic-seal .seal-ring{transform-box:view-box;transform-origin:24px 20px;animation:spinZ 14s linear infinite}
+.ic-seal .seal-star{transform-origin:center;animation:starPulse 2.8s ease-in-out infinite}
+@keyframes starPulse{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.18) rotate(12deg)}}
+/* small batches: three pearls hopping in turn in a little bowl */
+.ic-bowl .hop{animation:hop 2.4s ease-in-out infinite}
+.ic-bowl .h2{animation-delay:.3s}.ic-bowl .h3{animation-delay:.6s}
+@keyframes hop{0%,45%,100%{transform:translateY(0)}22%{transform:translateY(-4.5px)}}
+.ic-bowl .wisp{opacity:0;animation:wispUp 3s ease-in-out infinite}
+.ic-bowl .w2{animation-delay:-1.5s}
+@keyframes wispUp{0%{opacity:0;transform:translateY(5px)}40%{opacity:.8}100%{opacity:0;transform:translateY(-4px)}}
+/* natural ingredients: a sprig swaying, its bud growing */
+.ic-sprig .sway{transform-box:view-box;transform-origin:24px 43px;animation:swayRot 4.5s ease-in-out infinite}
+@keyframes swayRot{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.ic-sprig .bud{transform-origin:50% 100%;animation:budGrow 4.5s ease-in-out infinite}
+@keyframes budGrow{0%,100%{transform:scale(.85)}50%{transform:scale(1.12)}}
+/* steep: a tea bag dipping, ripples spreading */
+.ic-steep .bag{animation:bagDip 3.2s ease-in-out infinite}
+@keyframes bagDip{0%,100%{transform:translateY(-1px)}50%{transform:translateY(6px)}}
+.ic-steep .rip{transform-origin:center;opacity:.3;animation:ripple 3.2s ease-in-out infinite}
+.ic-steep .r2{animation-delay:-.8s}
+@keyframes ripple{0%,100%{opacity:.25;transform:scaleX(.8)}50%{opacity:.9;transform:scaleX(1.08)}}
+/* simmer: the lid rattling as bubbles rise */
+.ic-simmer .lid{transform-box:view-box;transform-origin:24px 23px;animation:lidRattle 1.3s ease-in-out infinite}
+@keyframes lidRattle{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-1.2px) rotate(-2deg)}75%{transform:translateY(-.6px) rotate(2deg)}}
+.ic-simmer .bub{opacity:0;animation:bubUp 2.4s ease-out infinite}
+.ic-simmer .b2{animation-delay:-.8s}.ic-simmer .b3{animation-delay:-1.6s}
+@keyframes bubUp{0%{opacity:0;transform:translateY(7px) scale(.6)}30%{opacity:1}100%{opacity:0;transform:translateY(-6px) scale(1.1)}}
+/* chill: a snowflake turning slowly */
+.ic-chill .flake{transform-box:view-box;transform-origin:24px 24px;animation:spinZ 16s linear infinite}
+.ic-chill{animation:floatY 3.4s ease-in-out infinite}
+/* shake: the cup shaken, motion marks flashing either side */
+.ic-shake .shk{transform-box:view-box;transform-origin:24px 42px;animation:iconShake 2.2s ease-in-out infinite}
+@keyframes iconShake{0%,50%,100%{transform:rotate(0)}6%{transform:rotate(-9deg)}14%{transform:rotate(9deg)}22%{transform:rotate(-9deg)}30%{transform:rotate(7deg)}38%{transform:rotate(-4deg)}44%{transform:rotate(2deg)}}
+.ic-shake .mv{opacity:0;animation:mvFlash 2.2s ease-in-out infinite}
+.ic-shake .m2{animation-delay:.05s}
+@keyframes mvFlash{0%,2%,48%,100%{opacity:0}12%,30%{opacity:.9}}
+
+/* ---------- floating section arrows ---------- */
+.scrollnav{position:fixed;right:max(1rem,env(safe-area-inset-right));bottom:max(1.2rem,env(safe-area-inset-bottom));z-index:45;display:flex;flex-direction:column;align-items:center;gap:.55rem}
+.sn{position:relative;display:grid;place-items:center;width:3.1rem;height:3.1rem;padding:0;cursor:pointer;color:var(--ink);
+  background:var(--card);border:1.5px solid rgba(200,122,40,.55);border-radius:50%;box-shadow:var(--warm);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),background-color .3s var(--ease),opacity .3s var(--ease)}
+.sn svg{width:1.3rem;height:1.3rem;transition:transform .45s var(--ease)}
+.sn:hover:not([aria-disabled=true]){transform:translateY(-3px);background:var(--caramel);box-shadow:var(--glow)}
+.sn:active:not([aria-disabled=true]){transform:scale(.94);transition-duration:.12s}
+.sn-up:hover:not([aria-disabled=true]) svg{transform:translateY(-2px)}
+.sn-down:hover:not([aria-disabled=true]) svg{transform:translateY(2px)}
+.sn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.sn[aria-disabled=true]{opacity:.38;cursor:default}
+.sn::before{content:attr(data-tip);position:absolute;right:calc(100% + .7rem);top:50%;transform:translate(6px,-50%);white-space:nowrap;
+  padding:.38rem .8rem;border-radius:999px;background:var(--ink);color:#FAF6F0;font:600 .82rem Inter,"Helvetica Neue",system-ui,sans-serif;
+  opacity:0;pointer-events:none;transition:opacity .3s var(--ease),transform .4s var(--ease)}
+.sn:hover::before,.sn:focus-visible::before{opacity:1;transform:translate(0,-50%)}
+.sn[aria-disabled=true]::before,.sn[data-tip=""]::before{display:none}
+@media (hover:none){.sn::before{display:none}}
+
+@media (max-width:700px){
+  body.rd .timeline li{grid-template-columns:minmax(0,1fr) 92px;gap:.9rem;align-items:start}
+  .tl-art{margin-top:.2rem}
+  .sn{width:2.7rem;height:2.7rem}
+}
+@media (max-width:480px){
+  body.rd .timeline li{grid-template-columns:minmax(0,1fr) 78px;gap:.7rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .tw-c{opacity:1;transition:none}
+  .rd-js body.rd-about .timeline li:not(.in) .tl-copy p{clip-path:none}
+  body.rd-about main h2[data-rv]::after{width:3.6rem;transition:none}
+}
+
+/* ---------- order form: allergies / special instructions, per drink ---------- */
+.notes{--gap:.6rem;display:flex;flex-direction:column;gap:var(--gap)}
+.notes>.lbl{display:block;font-weight:600}
+.note-list{display:grid;gap:.7rem}
+.note-pick{display:grid;gap:.5rem;padding:.75rem .85rem .85rem;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.55);transition:border-color .3s var(--ease),box-shadow .3s var(--ease),background-color .3s var(--ease)}
+.note-pick:focus-within{border-color:rgba(200,122,40,.75);background:rgba(255,255,255,.85);box-shadow:0 0 0 3px rgba(200,122,40,.16)}
+.note-lbl{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem .55rem;font-weight:600;line-height:1.3}
+.drink-tag{display:inline-block;padding:.14rem .72rem;border-radius:999px;background:var(--caramel);color:var(--ink);font-weight:700;font-size:.92rem}
+.note-sep::before{content:"\2014\00a0"}
+.note-lbl small{margin-left:auto;font-weight:500;font-size:.8rem;color:var(--mute)}
+.note-pick input{width:100%}
+
+body.rd main .dq-go,body.rd main .dq-go:hover{color:var(--ink)}
+
+/* ==========================================================================
+   OUR STORY (round 3): spring reveals, tactile hovers, badge motion + parallax tilt, timeline ripple
+   ========================================================================== */
+@supports (animation-timing-function:linear(0,1)){
+  body.rd-about{--spr:linear(0,.024,.088,.178,.284,.397,.509,.617,.715,.802,.876,.938,.987,1.025,1.052,1.069,1.079,1.083,1.082,1.078,1.071,1.062,1.053,1.043,1.034,1.026,1.018,1.012,1.006,1.002,.999,.996,1)}   /* a real damped spring, sampled */
+}
+/* every card and block: 16px rise + fade on a spring, cascading by 80ms as a group enters */
+@keyframes rdSpring{from{opacity:0;transform:translate3d(0,16px,0)}to{opacity:1;transform:none}}
+body.rd-about [data-rv].in{animation:rdSpring .95s var(--spr) calc(var(--rv,0)*80ms) backwards}
+body.rd-about .timeline li.in{animation-name:rdSpring}
+/* the five "What goes in your cup" cards: same spring entrance (markup, canvases and 3D untouched) */
+body.rd-about .pop.in{animation:rdSpring .95s var(--spr) calc(var(--i,0)*80ms) backwards}
+
+/* tactile hover: lift, a hair of scale, warm shadow; pressed = settles back */
+body.rd-about .timeline li,body.rd-about .vows div,body.rd-about .steps div{transition:transform .55s var(--spr),box-shadow .5s var(--ease)}
+body.rd-about .card.ing{transition:transform .55s var(--spr),box-shadow .5s var(--ease),border-color .5s var(--ease);transition-delay:0s}
+@media (hover:hover){
+  body.rd-about .timeline li:hover,body.rd-about .vows div:hover,body.rd-about .steps div:hover,body.rd-about .card.ing:hover{transform:translateY(-6px) scale(1.012);box-shadow:var(--warm-up)}
+  body.rd-about .timeline li.now:hover{box-shadow:0 28px 54px rgba(28,20,13,.36)}
+}
+body.rd-about .timeline li:active,body.rd-about .vows div:active,body.rd-about .steps div:active,body.rd-about .card.ing:active{transform:translateY(-2px) scale(.994);transition-duration:.15s}
+
+/* ---------- timeline: line fills smoothly, a glowing head leads it, each node ripples as it lights ---------- */
+body.rd .timeline{--tlx:calc(.5rem - 1px)}
+body.rd .timeline::before,body.rd .timeline::after{left:var(--tlx)}
+.tl-head{position:absolute;z-index:3;left:calc(var(--tlx) - 4px);top:0;width:11px;height:11px;margin-top:-4px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,#FFE2B0 0 30%,#E0A25A 62%,rgba(224,162,90,0) 72%);box-shadow:0 0 14px 4px rgba(224,150,50,.55);
+  opacity:0;transition:opacity .4s var(--ease);animation:headPulse 1.6s ease-in-out infinite}
+.tl-head.on{opacity:1}
+@keyframes headPulse{0%,100%{scale:1}50%{scale:1.35}}
+body.rd .timeline li.lit::before{animation:nodePing 1.3s var(--ease) both,nodePop .8s var(--spr) both}
+@keyframes nodePing{
+  0%{box-shadow:0 0 0 0 rgba(200,122,40,.7),0 0 0 0 rgba(224,162,90,.45)}
+  45%{box-shadow:0 0 0 12px rgba(200,122,40,.18),0 0 0 4px rgba(224,162,90,.3)}
+  75%{box-shadow:0 0 0 26px rgba(200,122,40,0),0 0 0 14px rgba(224,162,90,0)}
+  100%{box-shadow:0 0 0 6px rgba(200,122,40,.2),0 0 0 0 rgba(224,162,90,0)}}
+@keyframes nodePop{from{transform:scale(.7)}to{transform:scale(1.2)}}
+@media (max-width:700px){body.rd .timeline{--tlx:calc(.5rem - 2.4px)}}
+
+/* ---------- badges: float, breathing shadow, hover parallax tilt ---------- */
+.tl-art{--tx:0;--ty:0;--ph:0s;
+  transform:perspective(720px) rotateX(calc(var(--ty) * -10deg)) rotateY(calc(var(--tx) * 12deg));
+  transition:transform .45s var(--ease),scale .6s var(--spr);
+  animation:artFloat 6.4s ease-in-out var(--ph) infinite}
+.tl-art.is-fire{--ph:-1.4s}.tl-art.is-roll{--ph:-2.8s}.tl-art.is-shake{--ph:-4.2s}.tl-art.is-glow{--ph:-5.6s}
+@keyframes artFloat{0%,100%{translate:0 3px}50%{translate:0 -6px}}
+.tl-art .tl-disc{animation:discBreath 4.6s ease-in-out var(--ph) infinite;translate:calc(var(--tx) * -5px) calc(var(--ty) * -5px);transition:translate .45s var(--ease)}   /* the disc drifts against the art: parallax */
+.tl-art .art{translate:calc(var(--tx) * 8px) calc(var(--ty) * 8px);transition:translate .45s var(--ease)}
+@keyframes discBreath{
+  0%,100%{box-shadow:inset 0 0 0 1px rgba(200,122,40,.24),inset 0 -12px 24px rgba(200,122,40,.12),0 16px 30px rgba(146,86,24,.16)}
+  50%{box-shadow:inset 0 0 0 1px rgba(200,122,40,.34),inset 0 -12px 24px rgba(200,122,40,.2),0 22px 42px rgba(200,122,40,.32)}}
+body.rd .timeline li.now .tl-disc{animation-name:discBreathDark}
+@keyframes discBreathDark{
+  0%,100%{box-shadow:inset 0 0 0 1px rgba(224,162,90,.4),0 0 34px rgba(200,122,40,.24)}
+  50%{box-shadow:inset 0 0 0 1px rgba(224,162,90,.6),0 0 58px rgba(224,150,50,.46)}}
+.tl-art.is-fire .tl-disc{animation:discFlicker 1.9s ease-in-out infinite}   /* warm flickering light off the fire */
+@keyframes discFlicker{
+  0%,100%{box-shadow:inset 0 0 0 1px rgba(200,122,40,.3),inset 0 -14px 28px rgba(245,138,34,.2),0 14px 32px rgba(245,138,34,.28)}
+  22%{box-shadow:inset 0 0 0 1px rgba(200,122,40,.3),inset 0 -18px 32px rgba(245,138,34,.32),0 18px 40px rgba(245,138,34,.4)}
+  47%{box-shadow:inset 0 0 0 1px rgba(200,122,40,.3),inset 0 -10px 22px rgba(245,138,34,.16),0 12px 28px rgba(245,138,34,.22)}
+  71%{box-shadow:inset 0 0 0 1px rgba(200,122,40,.3),inset 0 -16px 30px rgba(245,138,34,.28),0 16px 36px rgba(245,138,34,.36)}}
+@media (hover:hover){body.rd .timeline li:hover .tl-art{transform:perspective(720px) rotateX(calc(var(--ty) * -10deg)) rotateY(calc(var(--tx) * 12deg));scale:1.06}}
+.rd-js .tl-art:not(.on){animation-play-state:paused}
+
+/* leaf: a gentle breeze */
+.art-leaf{animation:leafBreeze 7s ease-in-out infinite}
+@keyframes leafBreeze{0%,100%{transform:rotateY(-15deg) rotateZ(-2deg) translateX(-2px)}50%{transform:rotateY(15deg) rotateZ(2.5deg) translateX(3px)}}
+.art-leaf .lf{transform-box:view-box;transform-origin:100px 120px}
+.art-leaf .lf-l{animation:flutterL 4.6s ease-in-out infinite}
+.art-leaf .lf-r{animation:flutterR 5.2s ease-in-out -1.2s infinite}
+.art-leaf .lf-b{animation:flutterB 6s ease-in-out -.6s infinite}
+@keyframes flutterL{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(3deg)}}
+@keyframes flutterR{0%,100%{transform:rotate(4deg)}50%{transform:rotate(-3deg)}}
+@keyframes flutterB{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(2deg)}}
+.art-leaf .wd{fill:none;stroke:#B7A47C;stroke-width:2.4;stroke-linecap:round;opacity:0;animation:windPass 5.4s ease-in-out infinite}
+.art-leaf .w2{animation-delay:-1.8s}.art-leaf .w3{animation-delay:-3.6s}
+@keyframes windPass{0%{opacity:0;transform:translateX(-18px)}25%{opacity:.6}70%{opacity:.5}100%{opacity:0;transform:translateX(30px)}}
+.art-leaf .dew{animation:dewShimmer 2.8s ease-in-out infinite}
+.art-leaf .dew.d2{animation-delay:-1.4s}
+@keyframes dewShimmer{0%,100%{opacity:.55;transform:scale(.88)}50%{opacity:1;transform:scale(1.2)}}
+.art-leaf .glint{fill:#fff;transform-box:fill-box;transform-origin:center;opacity:0;animation:glint 3.2s ease-in-out infinite}
+.art-leaf .g2{animation-delay:-1.6s}
+@keyframes glint{0%,60%,100%{opacity:0;transform:scale(.2) rotate(0)}74%{opacity:1;transform:scale(1) rotate(45deg)}88%{opacity:0;transform:scale(.3) rotate(90deg)}}
+.art-leaf .wd,.art-leaf .glint{transform-box:fill-box}
+
+/* fire: wispy steam rising off the spout and lid */
+.art-fire .steam{fill:none;stroke:#C2976A;stroke-width:3.6;stroke-linecap:round;opacity:0;transform-box:fill-box;transform-origin:50% 100%;animation:steamRise 3.6s ease-in-out infinite}
+.art-fire .st2{animation-delay:-1.2s}.art-fire .st3{animation-delay:-2.2s}.art-fire .st4{animation-delay:-.6s}.art-fire .st5{animation-delay:-2.8s}
+@keyframes steamRise{
+  0%{opacity:0;transform:translate(0,12px) scale(.8,.7)}
+  25%{opacity:.85}
+  60%{opacity:.55;transform:translate(4px,-8px) scale(1,1)}
+  100%{opacity:0;transform:translate(-4px,-30px) scale(1.25,1.2)}}
+
+@media (prefers-reduced-motion:reduce){
+  .tl-art,.tl-art .tl-disc{animation:none}
+  .tl-head{display:none}
+}
+
+/* ==========================================================================
+   OUR STORY (round 4): hybrid scroll layout
+   hero fills the whole window; "A craft handed down" starts below the fold;
+   clear air under the promise cards so "The brewing craft" is its own stop
+   ========================================================================== */
+body.rd-about .wrap.page-top{
+  box-sizing:border-box;min-height:100vh;min-height:100svh;
+  align-content:center;align-items:center;padding-top:7rem;padding-bottom:4.5rem;
+}
+body.rd-about .story-long{padding-bottom:9.5rem}   /* the space the brewing craft is parked behind */
+@media (max-width:860px){
+  body.rd-about .wrap.page-top{padding-top:6.5rem;padding-bottom:3.5rem}
+  body.rd-about .story-long{padding-bottom:6.5rem}
+}
+
+
+/* ===== Home: words rise out of a mask ===== */
+[data-words]:not(.words-ready){opacity:0;animation:wordsFail 0s 3s forwards}      /* hidden until the script has split the words; a safety net shows it anyway */
+@keyframes wordsFail{to{opacity:1}}
+[data-words] .w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .03em .16em;margin-bottom:-.16em}
+[data-words] .w>span{display:inline-block;transform:translate3d(0,110%,0)}
+[data-words].words-in .w>span{animation:rdWord 1.05s cubic-bezier(.22,1,.36,1) calc(var(--wi,0)*75ms + 120ms) both}
+@keyframes heroRise{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:none}}
+.hero-copy h1[data-words]~p,.hero-copy h1[data-words]~.row{opacity:0;animation:wordsFail 0s 3.4s forwards}
+.hero-copy h1.words-in~p,.hero-copy h1.words-in~.row{animation:heroRise .9s cubic-bezier(.22,1,.36,1) .95s both}   /* the text and buttons follow once the headline has written in */
+@media (prefers-reduced-motion:reduce){[data-words]{opacity:1!important;animation:none!important}[data-words] .w>span{transform:none!important;animation:none!important}.hero-copy h1[data-words]~p,.hero-copy h1[data-words]~.row{opacity:1!important;animation:none!important}}
+
+/* ===== Our story: scroll-linked timeline, chapter rail, numbered brewing steps ===== */
+.tl-rail{position:relative;top:auto;z-index:20;display:flex;gap:.3rem;overflow-x:auto;max-width:100%;width:max-content;margin:0 0 1.5rem;padding:.35rem;border-radius:999px;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:var(--shadow);scrollbar-width:none}
+.tl-rail::-webkit-scrollbar{display:none}
+.tl-rail a{display:flex;align-items:center;gap:.45rem;white-space:nowrap;padding:.5rem .95rem;border-radius:999px;font:600 .95rem Inter,"Helvetica Neue",system-ui,sans-serif;color:var(--brown);text-decoration:none;transition:background .4s var(--ease),color .4s var(--ease)}
+.tl-rail a i{font:800 .74rem/1 Inter,"Helvetica Neue",system-ui,sans-serif;font-style:normal;letter-spacing:.08em;color:var(--amber-d)}
+.tl-rail a:hover{background:rgba(200,122,40,.16)}
+.tl-rail a.on{background:var(--amber);color:#1b120a}
+.tl-rail a.on i{color:inherit}
+.timeline{counter-reset:ch}
+.timeline li{counter-increment:ch}
+.timeline li .tl-art{transition:scale .8s var(--spr),translate .8s var(--spr)}
+.timeline li.is-active .tl-art{scale:1.07;translate:0 -4px}
+.timeline .era::before{content:"0" counter(ch) " / 05";margin-right:.7rem;padding-right:.7rem;border-right:2px solid currentColor;font-weight:800}
+.steps{counter-reset:st}
+.steps>div{counter-increment:st;position:relative;overflow:hidden}
+.steps>div::after{content:"0" counter(st);position:absolute;right:1rem;top:.5rem;font:600 2.6rem/1 "Inter Tight","Helvetica Neue",Arial,sans-serif;color:rgba(200,122,40,.2);pointer-events:none}
+.steps>div::before{content:"";position:absolute;left:0;top:0;height:3px;width:100%;background:var(--amber);transform:scaleX(0);transform-origin:left}
+.steps>div.in::before{transform:scaleX(1);transition:transform 1s var(--ease) .3s}
+/* the chapter bar stays where it sits on the page: it scrolls with the content and never follows the viewport */
+@media (prefers-reduced-motion:reduce){.timeline li .tl-art{transition:none}.steps>div::before{transform:scaleX(1)}}
+
+/* Live craving counter outside opening hours: the dot stops pulsing */
+.ticker.is-closed .live::before{animation:none!important;background:#a99a88;box-shadow:none}
+
+/* ---------- the one place the old serif stays: the brand wordmark. It matches the lettering on the logo roundel and the banner, so the name always looks the same. ---------- */
+.brand,.foot b{font-family:var(--serif);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+
+
+/* ===== full-size drink photo (order list) ===== */
+.imgbox{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);width:fit-content;height:fit-content;max-width:none;max-height:none;overflow:visible}
+.imgbox::backdrop{background:rgba(28,20,13,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.imgbox[open]::backdrop{animation:qvFade .35s var(--ease) both}
+.imgbox.closing::backdrop{animation:qvFade .28s var(--ease) reverse both}
+.imgbox-fig{position:relative;margin:0;border-radius:24px;overflow:hidden;background:var(--card);box-shadow:0 40px 90px rgba(28,20,13,.4),0 0 0 1px rgba(200,122,40,.25)}
+.imgbox[open] .imgbox-fig{animation:qvIn .5s var(--ease) both}
+.imgbox.closing .imgbox-fig{animation:qvOut .28s var(--ease) both}
+.imgbox-img{display:block;width:min(720px,calc(100vw - 2rem),calc(100dvh - 9rem));height:auto;aspect-ratio:1;object-fit:cover;background:#E9D6BC}
+.imgbox-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.9rem 1.3rem 1rem}
+.imgbox-cap b{font:700 1.15rem "Inter Tight","Helvetica Neue",Arial,sans-serif}
+.imgbox-cap span{color:var(--caramel);font-weight:700;font-variant-numeric:tabular-nums}
+.imgbox-x{position:absolute;top:.9rem;right:.9rem;width:2.5rem;height:2.5rem;padding:.6rem;display:grid;place-items:center;cursor:pointer;border:1.5px solid var(--line-warm,#E4D2B6);border-radius:50%;background:var(--card);color:var(--ink);transition:transform .45s var(--ease),background-color .3s,border-color .3s}
+.imgbox-x:hover{transform:rotate(90deg);background:var(--caramel);border-color:var(--caramel)}
+.imgbox-x:focus-visible{outline:3px solid var(--caramel);outline-offset:2px}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-SG" class="snap-page"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Craving perfection | Boba Crave Co.</title><meta name="description" content="Small-batch traditional bubble tea with fresh tapioca pearls.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preload" as="image" href="video/banner-poster.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="images/portrait/brown-sugar-milk-tea.jpg" fetchpriority="low">
+<link rel="preload" as="image" href="images/portrait/classic-milk-tea.jpg" fetchpriority="low">
+<link rel="preload" as="image" href="images/portrait/taro-cloud.jpg" fetchpriority="low">
+<link rel="preload" as="image" href="images/portrait/peach-boba-tea.jpg" fetchpriority="low">
+<link rel="preload" as="image" href="images/portrait/strawberry-matcha-boba-delight.jpg" fetchpriority="low">
+<link rel="preload" as="image" href="images/portrait/iced-matcha-latte.jpg" fetchpriority="low">
+<link rel="preload" as="image" href="images/portrait/jasmine-green-tea.jpg" fetchpriority="low">
+<link rel="preload" as="image" href="images/portrait/mango-passionfruit.jpg" fetchpriority="low">
+<link rel="preload" as="image" href="images/portrait/hojicha-oat-milk-tea.jpg" fetchpriority="low">
+<link rel="stylesheet" href="style.css"><link rel="icon" href="images/logo.png"></head><body>
+<canvas id="hero3d" aria-hidden="true"></canvas>
+<div class="wrapper">
+<header class="nav">
+<a class="brand" href="index.html"><img class="logo" src="images/logo.png" alt="Boba Crave Co. logo" width="44" height="44">Boba Crave Co.</a>
+<button class="burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span></button>
+<nav aria-label="Main navigation"><a href="index.html" aria-current="page">Home</a><a href="products.html">Menu</a><a href="aboutus.html">Our story</a><a href="contactus.html">Contact</a></nav>
+</header>
+<main>
+<section class="hero-wrap has-video" id="heroWrap">
+<div class="hero-video-wrapper" aria-hidden="true">
+<video class="hero-video-banner" autoplay loop muted playsinline preload="auto" poster="video/banner-poster.jpg" disablePictureInPicture disableRemotePlayback controlslist="nodownload noplaybackrate nofullscreen noremoteplayback" tabindex="-1" oncontextmenu="return false;">
+<source src="video/banner.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+</div>
+<div class="hero"><div class="hero-copy"><h1 data-words>Craving perfection, one tapioca pearl at a time.</h1>
+<p>Whole-leaf teas brewed slowly, pearls simmered fresh every two hours, every cup shaken to order.</p>
+<div class="row"><a class="btn" href="products.html">Choose your cup</a><a class="btn ghost" href="aboutus.html">See how we brew</a></div></div>
+<p class="hint"><span class="hint-cup">Drag across the cup to stir the pearls &middot; </span>scroll or click once to dive in</p></div>
+</section>
+<section class="wrap ad snap-sec" id="ad" aria-labelledby="ad-title">
+<div class="ad-grid">
+<div class="ad-player pop" style="--i:0" data-playing="true" data-muted="true">
+<video class="ad-video" autoplay loop muted playsinline preload="metadata" poster="video/ad-poster.jpg" aria-label="Boba Crave Co. ad: milk tea, pearls and ice in motion">
+<source src="video/ad.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+<div class="ad-controls" role="group" aria-label="Video controls">
+<button type="button" class="ad-btn" data-ad-play aria-label="Pause video"><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5h3.5v15H7zM13.5 4.5H17v15h-3.5z"/></svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
+<button type="button" class="ad-btn" data-ad-mute aria-label="Unmute video"><svg class="i-mute" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M16 9.5l5 5M21 9.5l-5 5"/></svg><svg class="i-vol" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg></button>
+</div>
+</div>
+<div class="ad-copy panel pop" style="--i:1">
+<h2 id="ad-title" data-words>Indulge Your Boba Cravings</h2>
+<p>Made fresh daily with premium tea leaves, caramelized brown sugar, and handcrafted tapioca pearls.</p>
+<a class="btn" href="#menu" data-scroll="#menu">Order Fresh Now</a>
+</div>
+</div>
+</section>
+<section class="snap-sec showcase" id="showcase" aria-labelledby="show-title">
+<div class="show-head"><h2 id="show-title" data-words>Our Boba Display</h2><p>Nine cups, shaken fresh and poured over warm pearls. Hover to slow the parade, tap a cup to order it.</p></div>
+<div class="show-stage" id="showStage"><div class="show-track" id="showTrack"></div></div>
+<div class="show-cta"><a class="btn show-more" href="products.html">Check out full menu <span aria-hidden="true">&rarr;</span></a></div>
+</section>
+<section class="wrap snap-sec story" id="story" aria-labelledby="story-title">
+<div class="story-head"><div><span class="eyebrow">Our story &amp; ingredients</span><h2 id="story-title" data-words>From centuries-old tea craft to your cup</h2></div>
+<p class="story-copy">It starts with hand-picked leaves, wood-fire kettles and cassava pearls rolled by hand. Singapore's tea stalls turned that patience into bubble tea. We keep it alive with small hourly batches, uncompromised craft and natural ingredients. <a class="story-more" href="aboutus.html">Read the full story &rarr;</a></p></div>
+<ol class="story-path" aria-label="Our heritage"><li><b>The leaf</b>Picked by hand at dawn</li><li><b>The fire</b>Slow wood-fire simmer</li><li><b>The roll</b>Cassava pearls, hand-rolled</li><li><b>The stall</b>Singapore's tea stalls</li><li><b>Today</b>Fresh batch every hour</li></ol>
+<div class="grid ing-grid ing-row"><article class="card ing pop-s" style="--i:0"><div class="model"><canvas data-ing="leaf" aria-label="3D tea leaf"></canvas></div><h3>Tea Leaf</h3><p>Black and jasmine green leaves, steeped fresh each morning.</p></article><article class="card ing pop-s" style="--i:1"><div class="model"><canvas data-ing="pearl" aria-label="3D tapioca pearl"></canvas></div><h3>Tapioca Pearl</h3><p>Hand-cooked in small batches and served within two hours.</p></article><article class="card ing pop-s" style="--i:2"><div class="model"><canvas data-ing="milk" aria-label="3D milk carton labelled Fresh Milk"></canvas></div><h3>Fresh Milk</h3><p>Cold, creamy, and added last so the tea stays the star.</p></article><article class="card ing pop-s" style="--i:3"><div class="model"><canvas data-ing="sugar" aria-label="3D brown sugar"></canvas></div><h3>Brown Sugar</h3><p>Brown sugar cooked down into a dark syrup that coats every pearl.</p></article><article class="card ing pop-s" style="--i:4"><div class="model"><canvas data-ing="ice" aria-label="3D crystal ice cube"></canvas></div><h3>Crystal Ice</h3><p>Clear, slow-melting cubes that keep every cup cold without watering it down.</p></article></div>
+</section>
+<section class="wrap snap-sec" id="menu"><h2 data-words>Crowd favorites</h2><div class="grid" id="fav" data-pick="brownsugar,taro,mango">
+<article class="card product-card pop" data-cat="Classic Milk Teas" data-key="brownsugar" style="--i:0"><div class="pic"><img class="cover" src="images/brown-sugar-milk-tea.jpg" alt="Brown Sugar Milk Tea in a branded cup with dark syrup streaks, creamy brown-sugar foam and tapioca pearls" width="1254" height="1254" loading="lazy" decoding="async"></div>
+<div class="tags"><span>Bestseller</span><span>Syrup-streaked</span></div><h3>Brown Sugar Milk Tea</h3><p>Black tea and fresh milk over pearls simmered in dark brown sugar syrup.</p>
+<div class="buy"><b>S$6.80</b><a class="btn sm" href="contactus.html?drink=Brown%20Sugar%20Milk%20Tea">Order</a></div></article>
+<article class="card product-card pop" data-cat="Specialty Series" data-key="taro" style="--i:1"><div class="pic"><img class="cover" src="images/taro-cloud.jpg" alt="Taro Cloud in a glass: creamy lavender taro tea topped with white coconut foam" width="1254" height="1254" loading="lazy" decoding="async"></div>
+<div class="tags"><span>Creamy</span><span>Coconut foam</span></div><h3>Taro Cloud</h3><p>Taro milk tea under a velvety coconut cream cloud.</p>
+<div class="buy"><b>S$6.90</b><a class="btn sm" href="contactus.html?drink=Taro%20Cloud">Order</a></div></article>
+<article class="card product-card pop" data-cat="Fruit Teas" data-key="mango" style="--i:2"><div class="pic"><img class="cover" src="images/mango-passionfruit.jpg" alt="Mango Passionfruit tea, bright yellow-orange, with ice and fresh mango pulp" width="1254" height="1254" loading="lazy" decoding="async"></div>
+<div class="tags"><span class="pb">Plant-based</span><span>Fruity</span><span>Bright</span></div><h3>Mango Passionfruit</h3><p>Ripe mango and tart passionfruit shaken over green tea and ice.</p>
+<div class="buy"><b>S$6.40</b><a class="btn sm" href="contactus.html?drink=Mango%20Passionfruit">Order</a></div></article>
+</div></section>
+</main>
+<div class="finale" id="finale">
+<section class="wrap counter" aria-label="Live craving counter"><div class="panel ticker"><div><span class="live">Live craving counter</span><p>Cups poured today, and counting.</p></div><div class="big" id="craves" aria-live="off">0</div></div></section>
+<footer class="foot"><div class="fbrand"><img class="logo" src="images/logo.png" alt="Boba Crave Co. logo" width="44" height="44"><div><b>Boba Crave Co.</b><p>Craving perfection, one tapioca pearl at a time.</p></div></div>
+<nav aria-label="Footer navigation"><a href="index.html" aria-current="page">Home</a><a href="products.html">Menu</a><a href="aboutus.html">Our story</a><a href="contactus.html">Contact</a></nav><div><a href="mailto:contact@bobacraveco.com">contact@bobacraveco.com</a><span>2 Ang Mo Kio Drive, Singapore 567720 (ITE College Central) &middot; Daily 11am to 10pm</span><small>&copy; 2026 Boba Crave Co.</small></div></footer>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script src="main.js"></script>
+</body></html>
